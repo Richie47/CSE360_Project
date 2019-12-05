@@ -14,27 +14,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Design {
-	private int lowerBound = 0; //current lower bound default 0
-	private int upperBound = 100; //current upper bound default 100
-	private ArrayList<Float> inputList = new ArrayList<Float>();  //used to store extracted input
-	private ArrayList<Float> sortedInput = new ArrayList<Float>(); //will be set to inputList, be sorted, and used to do analytics.
 
-	private JFrame appMain; //central app
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Design app = new Design();
-					app.appMain.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private Dataset ca = new Dataset();
+
+	JFrame appMain; //central app
+
 
 	/**
 	 * Create the application.
@@ -78,44 +62,16 @@ public class Design {
 		btnUploadFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				try {
 					final JFileChooser fileChooser = new JFileChooser();
 					FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text", "csv");
 					fileChooser.setFileFilter(filter);
-					int returnFileVal = fileChooser.showOpenDialog(null);
-					System.out.print("yoooo");
-					if (returnFileVal == JFileChooser.APPROVE_OPTION) {
-						
-						File file = fileChooser.getSelectedFile();
-						System.out.print(file);
-						Scanner s = new Scanner(file);
-						
-						while (s.hasNextLine()) {
-							float currentInt = s.nextFloat();
-							if(lowerBound < currentInt && currentInt < upperBound) {
-							inputList.add(s.nextFloat());
-							}
-							else {
-								//here we would reject the file and then print the error log
-							}
-						}
-						s.close(); // close scanner
-					}
-					
-					else {
-							
-					}
+					File file = fileChooser.getSelectedFile();
 					
 					
-				} catch(Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+				
+			}});
 		JButton btnSetBounds = new JButton("SET BOUNDS");
 	
-
-		//appMain.getContentPane().add(uploadFileBTN);
 		
 	    JPanel mainPanel = new JPanel();
 	    Dimension preferredSize = appMain.getSize();
@@ -136,6 +92,10 @@ public class Design {
 			}
 		});
 		mainPanel.add(btnUploadFile, matrix);
+		
+		JButton btnErrorReport = new JButton("ERROR REPORT");
+		mainPanel.add(btnErrorReport);
+		
 
 		
 		JPanel header = new JPanel(new GridLayout(1,0));
