@@ -86,22 +86,6 @@ public class Dataset {
 	}
 	
 	/**
-	 * Sorts the array of the Dataset in descending order.
-	 */
-	public void sort() {
-		//insertion sort
-		for (int i = 1; i < arr.size(); i++) {
-			int j = i - 1;
-			int value = arr[i];
-			while (j >= 0 && arr[j] < value) {
-				arr[j + 1] = arr[j];
-				j--;
-			}
-			arr[j + 1] = value;
-		}
-	}
-	
-	/**
 	 * Sets boundaries for Dataset
 	 * @return dataInvalid - true if data is out of boundaries, false
 	 * if data fits in boundaries
@@ -117,7 +101,6 @@ public class Dataset {
 		return dataInvalid; //or give error on return
 	}
 	/**
-	 * Checks whether the values in the 
 	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case the GUI method that called
 	 * this will empty the array
 	 */
