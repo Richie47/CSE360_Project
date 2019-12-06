@@ -16,6 +16,21 @@ public class Dataset {
 	private String historyLog; //used for the overall export history
 	private int lowerBound = 0; //current lower bound default 0
 	private int upperBound = 100; //current upper bound default 100
+	
+	/*
+	 * Constructor for Dataset
+	 */
+	public Dataset(ArrayList<Float> array) {
+		arr = array;
+		sort();
+	}
+	
+	//op2
+	/*
+	public Dataset(File file) {
+		arr = parseTxt(file);
+	}*/
+	
 	/**
 	 * parse text file,
 	 * there should be one value per line
@@ -69,25 +84,68 @@ public class Dataset {
 			return null;
 		}
 	}
+	
 	/**
-	 * 
-	 * @param arr  - the current list that holds the uploaded files value
-	 * @param lowerBound
-	 * @param upperBound
+	 * Sorts the array of the Dataset in descending order.
+	 */
+	public void sort() {
+		//insertion sort
+		for (int i = 1; i < arr.size(); i++) {
+			int j = i - 1;
+			int value = arr[i];
+			while (j >= 0 && arr[j] < value) {
+				arr[j + 1] = arr[j];
+				j--;
+			}
+			arr[j + 1] = value;
+		}
+	}
+	
+	/**
+	 * Sets boundaries for Dataset
+	 * @return dataInvalid - true if data is out of boundaries, false
+	 * if data fits in boundaries
+	 */
+	public Boolean setBoundaries(int lower, int upper) {
+		lowerBound = lower;
+		upperBound = upper;
+		Boolean dataInvalid = checkForOutOfBounds();
+		if (dataInvalid == false) {
+			//give error
+			//delete data or no?
+		}
+		return dataInvalid; //or give error on return
+	}
+	/**
+	 * Checks whether the values in the 
 	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case the GUI method that called
 	 * this will empty the array
 	 */
-	public Boolean checkForOutOfBounds(int lowerBound, int upperBound) {
+	public Boolean checkForOutOfBounds() {
 		// check for values greater than upper bound
 		for (int i = 0; i < arr.size(); i++) {
 			float value = arr.get(i);
-			if (value > upperBound) {
+			if (value > upperBound || value < lowerBound) {
 				//do something
 				return true;
 			}
-			if (value < lowerBound) {
-					//do something
-			
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Overloaded method: Checks whether the values in the arrayList are in bounds
+	 * 	For use in appendData method
+	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case the GUI method that called
+	 * this will empty the array
+	 */
+	public Boolean checkForOutOfBounds(ArrayList<Float> arr) {
+		// check for values greater than upper bound
+		for (int i = 0; i < arr.size(); i++) {
+			float value = arr.get(i);
+			if (value > upperBound || value < lowerBound) {
+				//do something
 				return true;
 			}
 		}
@@ -109,7 +167,7 @@ public class Dataset {
 	 * @param arr
 	 * @return
 	 */
-	public float findMedian(ArrayList<Float> arr) {
+	public float findMedian() {
 		Collections.sort(arr);
 		float middle = arr.size()/2;
 		//when the length is odd
@@ -144,17 +202,34 @@ public class Dataset {
 		
 		return "";
 	}
+	
+	/**
+	 * add values to array if they are all within bounds.
+	 * @param arrList - ArrayList of values from input file 
+	 * @return true if they were added, false if not added
+	 */
+	public static boolean appendData(ArrayList<Float> arrList) {
+		Boolean outOfBoundsFlag = checkForOutOfBounds(arrList);
+		//add the values if NONE are out of bounds
+		if (outofBoundsFlag == false) {
+			for (int i = 0; i < arrList.size(); i++) {
+				arr.add(arrList[i]);
+			}
+			sort();
+		}
+		
+		return outOfBoundsFlag;
+	}
+	
 	/**
 	 * delete the first instance if it exists
-	 * @param arr
 	 * @param value
 	 * @return true if we deleted the value
 	 */
-	public static Boolean deleteValue(ArrayList<Float> arr, float value) {
+	public Boolean deleteValue(float value) {
 		Boolean valuePresent = false;
-		
 		for (int i = 0; i < arr.size(); i++) {
-			if (arr.get(i) == value) {
+			if (valuePresent == false && arr.get(i) == value) { 
 				valuePresent = true;
 				arr.remove(i);
 			}
@@ -165,13 +240,12 @@ public class Dataset {
 	
 	/**
 	 * add value to array if it is within bounds
-	 * @param arr - array to add to
 	 * @param value - value to add
 	 * @param upperBound - lower bound
 	 * @param lowerBound - upper bound
 	 * @return true if add, false if not
 	 */
-	public static boolean addValue(ArrayList<Float> arr, float value, int lowerBound, int upperBound) {
+	public static boolean addValue(float value) {
 		Boolean outOfBoundsFlag = false;
 		
 		if (value > upperBound || value < lowerBound) {
@@ -182,6 +256,17 @@ public class Dataset {
 		}
 		
 		return outOfBoundsFlag;
+	}
+	
+	/**
+	 * Tells if the Dataset is empty
+	 * @return true if Dataset is empty, false if Dataset has values
+	 */
+	public Boolean dataIsEmpty() {
+		if (arr.size() == 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	public String showDistribution(ArrayList<Float> arr, int upperBound) {
@@ -195,7 +280,15 @@ public class Dataset {
 		return "";
 	}
 	
-	
+	/**
+	 * Sends report info to be made into a report file.
+	 * @return historyLog - log of all actions
+	 */
+	public String createReport() {
+		//could append certain status values to historyLog that 
+		//may not have been generated by calling those methods?
+		return historyLog;
+	}
 
 	
 }
