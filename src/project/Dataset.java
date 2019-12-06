@@ -169,7 +169,7 @@ public class Dataset {
         float mode = arr.get(1);
         int amount = 1;  //amount 'mode' appears in dataset
 
-        for(int i = 0; i < arr.size() - 1; i++)
+        for(int i = 0; i < arr.size(); i++)
         {
             float current = arr.get(i); 
             if(arr.get(i + 1) == current)   //if next item is equal to current item
