@@ -93,12 +93,12 @@ public class Dataset {
 		//insertion sort
 		for (int i = 1; i < arr.size(); i++) {
 			int j = i - 1;
-			int value = arr[i];
-			while (j >= 0 && arr[j] < value) {
-				arr[j + 1] = arr[j];
+			Float value = arr.get(i);
+			while (j >= 0 && arr.get(j) < value) {
+				arr.add(j + 1, arr.get(j));
 				j--;
 			}
-			arr[j + 1] = value;
+			arr.add(j + 1,value);
 		}
 	}
 	
@@ -276,12 +276,12 @@ public class Dataset {
 	 * @param arrList - ArrayList of values from input file 
 	 * @return true if they were added, false if not added
 	 */
-	public static boolean appendData(ArrayList<Float> arrList) {
+	public boolean appendData(ArrayList<Float> arrList) {
 		Boolean outOfBoundsFlag = checkForOutOfBounds(arrList);
 		//add the values if NONE are out of bounds
-		if (outofBoundsFlag == false) {
+		if (outOfBoundsFlag == false) {
 			for (int i = 0; i < arrList.size(); i++) {
-				arr.add(arrList[i]);
+				arr.add(arrList.get(i));
 			}
 			sort();
 		}
@@ -416,4 +416,3 @@ public class Dataset {
 
 	
 }
-	
