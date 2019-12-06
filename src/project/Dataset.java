@@ -261,15 +261,98 @@ public class Dataset {
     }
 	
     
-	public String displayData() {
+    /**
+     * Creates a formatted string displaying all the data entries in 4 columns in descending order. 
+     * 
+     * @return Formatted string displaying the 4 descending columns.
+     */
+    
+    public String displayData() {
 
-		return "";
+        int columnLength = arr.size()/4;    //gets the size of a quarter of the columns.
+        
+		int remainder = arr.size()%4;       //remainder used to calculate which of 4 columns need additional value.
+		
+		//This is really ugly but creates variables for four columns and variables for beginning and ending index.
+		List<Float> columnFirst;
+		int firstEnd;
+		//int firstEnd;
+		List<Float> columnSecond;
+		int secondEnd;
+		//int secondEnd;
+		List<Float> columnThird;
+		int thirdEnd;
+		//int thirdEnd;
+		List<Float> columnFourth;
+		//int fourthEnd;
+		//int fourthEnd;
+		
+		//gets indexes for first column
+		if(remainder > 0)   //if remainder than add 1 to this column's length
+		{
+            firstEnd = columnLength + 1;
+		}
+		else
+		{
+			firstEnd = columnLength;
+		}
+        columnFirst = arr.subList(0, firstEnd);
+        
+		//gets indexes for second column
+		if(remainder > 1)   //if still another remainder than add 1 to this column's length
+		{
+			
+            secondEnd =   firstEnd + columnLength + 1;  //gets end point from 
+		}
+		else
+		{
+			secondEnd =   firstEnd + columnLength;
+        }
+        
+        columnSecond = arr.subList(firstEnd, secondEnd);
+        
+		//gets indexes for third column
+		if(remainder > 2)   //if still another remainder than add 1 to this column's length
+		{
+			thirdEnd =   secondEnd + columnLength + 1;
+		}
+		else
+		{
+			thirdEnd =   secondEnd + columnLength;
+		}
+        columnThird = arr.subList(secondEnd, thirdEnd);
+        
+        columnFourth = arr.subList(thirdEnd, arr.size());
+
+		
+		//Now the actual creation of formatted string
+		String toReturn = "";
+		
+		for(int i = 0; i < columnFirst.size(); i++)   //will loop through every value in first column (will always be longest
+		{
+			toReturn = toReturn + columnFirst.get(i) + "  ";
+			
+			if(i < columnFirst.size() - 1 || columnSecond.size() == columnFirst.size()) //if we are before last value OR column lengths are same then it is okay to look at columnSecond
+			{
+				toReturn = toReturn + columnSecond.get(i) + "  ";
+			}
+			
+			if(i < columnFirst.size() - 1 || columnThird.size() == columnFirst.size()) //if not last row OR column lengths equal
+			{
+				toReturn = toReturn + columnThird.get(i) + "  ";
+			}
+			
+			if(i < columnFirst.size() - 1 || columnFourth.size() == columnFirst.size())  //if not last row OR column lengths equal
+			{
+				toReturn = toReturn + columnFourth.get(i);
+			}
+			
+			toReturn = toReturn + "\n";
+		}
+		
+		return toReturn;
 	}
 	
-	public String printColumns() {
-		
-		return "";
-	}
 	
 	/**
 	 * add values to array if they are all within bounds.
