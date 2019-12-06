@@ -164,7 +164,6 @@ public class Dataset {
      */
     private float findMode()    //Part of the logic of this method relies on the dataset being sorted and having at least 1 item
     {
-    	
     	//REMEMBER TO ADD HISTORY LOG 
     	
         float mode = arr.get(1);
