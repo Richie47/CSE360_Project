@@ -110,6 +110,8 @@ public class Dataset {
 		String analysis = "Mean: " + findMean() + "\n";
 		analysis = analysis + "Median: " + findMedian() + "\n";
 		analysis = analysis + "Mode: " + findMode() + "\n";
+		analysis = analysis + "High: " + arr.get(0) + "\n";   //since sorted gets largest value
+		analysis = analysis + "Low: " + arr.get(arr.size() - 1) + "\n";  //since sorted gets smallest value
 		return analysis;
 	}
 	
@@ -166,7 +168,7 @@ public class Dataset {
     {
     	//REMEMBER TO ADD HISTORY LOG 
     	
-        float mode = arr.get(1);
+        float mode = arr.get(0);
         int amount = 1;  //amount 'mode' appears in dataset
 
         for(int i = 0; i < arr.size(); i++)
@@ -257,13 +259,29 @@ public class Dataset {
 		return "";
 	}
 	
-
+	
+	/**
+	 * Checks if data set is empty.
+	 * 
+	 * @return true if data set is empty, false otherwise.
+	 */
+	public Boolean isEmpty()
+	{
+		//TO-DO:  Implement this.
+		
+		return false;
+	}
+	
 	/**
 	 * Creates a veritical ascii bar graph of all the data entries with in the dataset.
 	 * 
 	 * @return formatted string of ascii bar graph.
 	 */
 	public String displayGraph() {
+		
+		//
+		
+		
 		return "";
 	}
 	
