@@ -100,7 +100,7 @@ public class Dataset {
 	 * @param arr
 	 * @return the string used to be printed into the big display log
 	 */
-	public String analyzeData(ArrayList<Float> arr) {
+	public String analyzeData() {
 		//TODO: figure this out
 		return "";
 	}
@@ -109,7 +109,7 @@ public class Dataset {
 	 * @param arr
 	 * @return
 	 */
-	private float findMedian(ArrayList<Float> arr) {
+	private float findMedian() {
 		float middle = arr.size()/2;
 		//when the length is odd
 		if (arr.size() % 2 == 1) {
@@ -153,12 +153,12 @@ public class Dataset {
 		return mode;
 	}
 	
-	public static String displayData(ArrayList<Float> arr) {
+	public String displayData() {
 
 		return "";
 	}
 	
-	public static String printColumns(ArrayList<Float> arr) {
+	public String printColumns() {
 		
 		return "";
 	}
@@ -168,7 +168,7 @@ public class Dataset {
 	 * @param value
 	 * @return true if we deleted the value
 	 */
-	public static Boolean deleteValue(ArrayList<Float> arr, float value) {
+	public Boolean deleteValue(float value) {
 		Boolean valuePresent = false;
 		
 		for (int i = 0; i < arr.size(); i++) {
@@ -189,7 +189,7 @@ public class Dataset {
 	 * @param lowerBound - upper bound
 	 * @return true if add, false if not
 	 */
-	public static boolean addValue(ArrayList<Float> arr, float value, int lowerBound, int upperBound) {
+	public boolean addValue(float value, int lowerBound, int upperBound) {
 		Boolean outOfBoundsFlag = false;
 		
 		if (value > upperBound || value < lowerBound) {
@@ -203,14 +203,14 @@ public class Dataset {
 		return outOfBoundsFlag;
 	}
 	
-	public String showDistribution(ArrayList<Float> arr, int upperBound) {
+	public String showDistribution(int upperBound) {
 		
 		return "";
 	}
 	
 
 	
-	public String displayGraph(ArrayList<Float> arr, int upperBound) {
+	public String displayGraph(int upperBound) {
 		return "";
 	}
 	
