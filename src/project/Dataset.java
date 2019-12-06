@@ -224,7 +224,7 @@ public class Dataset {
 	 * @param lowerBound - upper bound
 	 * @return true if add, false if not
 	 */
-	public boolean addValue(float value, int lowerBound, int upperBound) {
+	public boolean addValue(float value) {
 		Boolean outOfBoundsFlag = false;
 		
 		if (value > upperBound || value < lowerBound) {
