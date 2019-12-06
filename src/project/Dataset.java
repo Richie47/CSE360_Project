@@ -105,12 +105,11 @@ public class Dataset {
 		return "";
 	}
 	/**
-	 * findMedian sorts the given ArrayList, then finds and returns the median. 
+	 * Finds and returns the median. 
 	 * @param arr
 	 * @return
 	 */
-	public float findMedian(ArrayList<Float> arr) {
-		Collections.sort(arr);
+	private float findMedian(ArrayList<Float> arr) {
 		float middle = arr.size()/2;
 		//when the length is odd
 		if (arr.size() % 2 == 1) {
@@ -124,11 +123,30 @@ public class Dataset {
 	}
 	
 	/**
+	 * Calculates and returns mean of filled data set
+	 * 
+	 * @return value of the mean of this data set
+	 */
+	private float findMean()
+	{
+		float mean = (float) 0.0;
+		float sum = (float) 0.0;
+		
+		for(int i = 0; i < arr.size(); i++)  //loops through each item in dataset
+		{
+			sum = sum + arr.get(i);
+		}
+		
+		mean = sum/arr.size();
+		
+		return mean;
+	}
+	/**
 	 * findMode will find the mode of the given arraylist
 	 * @param arr
 	 * @return the mode of the array
 	 */
-	public float findMode(ArrayList<Float> arr) {
+	private float findMode() {
 		//TODO: figure this out
 		float mode = 0;
 		
@@ -179,6 +197,7 @@ public class Dataset {
 		}
 		else {
 			arr.add(value);
+			Collections.sort(arr, Collections.reverseOrder());
 		}
 		
 		return outOfBoundsFlag;
