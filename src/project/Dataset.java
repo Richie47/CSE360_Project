@@ -99,16 +99,17 @@ public class Dataset {
 	
 	/**
 	 * return a report as string of the data
-	 * @param arr
+	 * 
 	 * @return the string used to be printed into the big display log
 	 */
 	public String analyzeData() {
 		//TODO: figure this out
 		return "";
 	}
+	
 	/**
 	 * Finds and returns the median. 
-	 * @param arr
+	 * 
 	 * @return
 	 */
 	private float findMedian() {
@@ -199,7 +200,7 @@ public class Dataset {
 	}
 	/**
 	 * delete the first instance if it exists
-	 * @param arr
+	 * 
 	 * @param value
 	 * @return true if we deleted the value
 	 */
@@ -218,10 +219,9 @@ public class Dataset {
 	
 	/**
 	 * add value to array if it is within bounds
-	 * @param arr - array to add to
+	 * 
 	 * @param value - value to add
-	 * @param upperBound - lower bound
-	 * @param lowerBound - upper bound
+	 * 
 	 * @return true if add, false if not
 	 */
 	public boolean addValue(float value) {
