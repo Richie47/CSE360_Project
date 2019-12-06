@@ -326,9 +326,9 @@ public class Dataset {
 		int[] bins = new int[10];  //holds the number in each 10% bin. 0th bin being 0 <= point < 10
 		int range = (upperBound - lowerBound)/10;
 		
-		for(int i = 0; i < arr.size(); i++)  //loops through every number in dataset
+		for(int i = 0; i < arr.size(); i++)  //loops through every data value, starting with highest valued data point
 		{
-			
+			int distance = 0;
 		}
 		
 		return bins;
