@@ -16,20 +16,48 @@ public class Dataset {
 	private String historyLog; //used for the overall export history
 	private int lowerBound = 0; //current lower bound default 0
 	private int upperBound = 100; //current upper bound default 100
+	private ErrorReporter error; //create and error reporter so that errors can be reported
 	
-	/*
+	/**
 	 * Constructor for Dataset
+	 * @param err - ErrorReporter used in Design class also used here
 	 */
-	public Dataset(ArrayList<Float> array) {
-		arr = array;
-		sort();
+	public Dataset(ErrorReporter err) {
+		error = err; //set same error reporter as GUI?
 	}
 	
-	//op2
-	/*
-	public Dataset(File file) {
-		arr = parseTxt(file);
-	}*/
+	
+	/**
+	 * chooses which file type to parse and catches if the file does not exist
+	 * @param file - the file to take as input
+	 */
+	public void parseFile(File file) {
+		//want to check file type, should only have a correct file at this point?
+		boolean fileExists = true;
+		try { //check that file exists
+			String fileName = file.getName();
+		} catch (FileNotFoundException e) {
+			error.createError("File not found"); //file not found error
+			fileExists = false;
+		}
+		if (fileExists) {
+			//call the correct parse for file
+			if (fileName.toLowerCase().contains(".txt")) {
+				arr = parseTxt(file); //set dataset to the file input
+				
+			}
+			else if (fileName.toLowerCase().contains(".csv")){
+				arr = parseCsv(file);
+			}
+			else {
+				arr = parseTxt(file);
+			}
+		}
+		
+		//fix up after adding data
+		sort();
+		checkForOutOfBounds();
+	}
 	
 	/**
 	 * parse text file,
@@ -39,7 +67,7 @@ public class Dataset {
 	 * else return error message that will be displayed in the error report
 	 * @param file
 	 */
-	public ArrayList<Float> parseTxt(File file)  {
+	private ArrayList<Float> parseTxt(File file)  {
 		try {
 			Scanner s = new Scanner(file);
 			ArrayList<Float> scores = new ArrayList<Float>();
@@ -66,7 +94,7 @@ public class Dataset {
 	 * else return error message that will be displayed in the error report
 	 * @param file
 	 */
-	public ArrayList<Float> parseCsv(File file) {
+	private ArrayList<Float> parseCsv(File file) {
 		try {
 			Scanner s = new Scanner(file);
 			ArrayList<Float> scores = new ArrayList<Float>();
@@ -113,6 +141,7 @@ public class Dataset {
 		Boolean dataInvalid = checkForOutOfBounds();
 		if (dataInvalid == false) {
 			//give error
+			error.createError("Previously entered data out of bounds");
 			//delete data or no?
 		}
 		return dataInvalid; //or give error on return
