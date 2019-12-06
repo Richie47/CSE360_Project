@@ -3,9 +3,6 @@ package project;
 
 //not sure how we would like to structure this
 public class ErrorReporter {
-	
-	
-	
 	private String errorHistory = ""; // used to store the history of the errors
 	
 	
@@ -46,7 +43,7 @@ public class ErrorReporter {
 	 * 
 	 * Appends to the error history
 	 */
-	public void appendToHistory(String Error) {
+	private void appendToHistory(String Error) {
 		errorHistory = errorHistory + Error + "\n";
 	}
 	
