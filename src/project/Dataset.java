@@ -43,6 +43,7 @@ public class Dataset {
 	}
 
 	
+	
 	/**
 	 * parse csv file, so extract by commas
 	 * get all values
@@ -69,15 +70,16 @@ public class Dataset {
 			return null;
 		}
 	}
+	
+	
+	
+	
 	/**
 	 * 
-	 * @param arr  - the current list that holds the uploaded files value
-	 * @param lowerBound
-	 * @param upperBound
 	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case the GUI method that called
 	 * this will empty the array
 	 */
-	public Boolean checkForOutOfBounds(int lowerBound, int upperBound) {
+	public Boolean checkForOutOfBounds() {
 		// check for values greater than upper bound
 		for (int i = 0; i < arr.size(); i++) {
 			float value = arr.get(i);
