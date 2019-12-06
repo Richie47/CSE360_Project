@@ -121,12 +121,12 @@ public class Dataset {
 		//insertion sort
 		for (int i = 1; i < arr.size(); i++) {
 			int j = i - 1;
-			Float value = arr.get(i);
+			float value = arr.get(i);
 			while (j >= 0 && arr.get(j) < value) {
-				arr.add(j + 1, arr.get(j));
+				arr.set(j+1, arr.get(j));
 				j--;
 			}
-			arr.add(j + 1,value);
+			arr.set(j + 1, value);
 		}
 	}
 	
@@ -349,7 +349,7 @@ public class Dataset {
 		}
 		else {
 			arr.add(value);
-			Collections.sort(arr, Collections.reverseOrder());
+			sort();
 		}
 		
 		return outOfBoundsFlag;
@@ -425,9 +425,43 @@ public class Dataset {
 		int[] bins = new int[10];  //holds the number in each 10% bin. 0th bin being 0 <= point < 10
 		int range = (upperBound - lowerBound)/10;
 		
-		for(int i = 0; i < arr.size(); i++)  //loops through every number in dataset
+		for(int i = 0; i < arr.size(); i++)  //loops through every data value, starting with highest valued data point
 		{
+
+			Float val = arr.get(i);
 			
+			if(val >= lowerBound && val < (lowerBound + range*1)) {
+				bins[0] ++;
+			}
+			if(val >= (lowerBound + range*1) && val < (lowerBound + range*2)) {
+				bins[1] ++;
+			}
+			if(val >= (lowerBound + range*2) && val < (lowerBound + range*3)) {
+				bins[2] ++;
+			}
+			if(val >= (lowerBound + range*3) && val < (lowerBound + range*4)) {
+				bins[3] ++;
+			}
+			if(val >= (lowerBound + range*4) && val < (lowerBound + range*5)) {
+				bins[4] ++;
+			}
+			if(val >= (lowerBound + range*5) && val < (lowerBound + range*6)) {
+				bins[5] ++;
+			}
+			if(val >= (lowerBound + range*6) && val < (lowerBound + range*7)) {
+				bins[6] ++;
+			}
+			if(val >= (lowerBound + range*7) && val < (lowerBound + range*8)) {
+				bins[7] ++;
+			}
+			if(val >= (lowerBound + range*8) && val < (lowerBound + range*9)) {
+				bins[8] ++;
+			}
+			if(val >= (lowerBound + range*9) && val < upperBound) {
+				bins[9] ++;
+			}
+			
+
 		}
 		
 		return bins;
