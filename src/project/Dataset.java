@@ -141,17 +141,49 @@ public class Dataset {
 		
 		return mean;
 	}
+	
 	/**
-	 * findMode will find the mode of the given arraylist
-	 * @param arr
-	 * @return the mode of the array
-	 */
-	private float findMode() {
-		//TODO: figure this out
-		float mode = 0;
-		
-		return mode;
-	}
+     * Calculates mode of current data set
+     * 
+     * @return the mode of the array
+     */
+    private float findMode()    //Part of the logic of this method relies on the dataset being sorted and having at least 1 item
+    {
+        float mode = arr.get(1);
+        int amount = 1;  //amount 'mode' appears in dataset
+
+        for(int i = 0; i < arr.size() - 1; i++)
+        {
+            float current = arr.get(i); 
+            if(arr.get(i + 1) == current)   //if next item is equal to current item
+            {
+                //Going to go into a nested loop to find # of times this data value occurs in dataset.
+                 
+                int nestedIndex = i;           //index of miniloop looking at, initializes to beginning element  
+                int nestedAmount = 1;          //will get compared to 'amount' to see if larger
+                while(nestedIndex != arr.size() - 1 && current == arr.get(nestedIndex + 1))   //runs if nestedIndex is not last index in arrayList and if next item is same as current
+                {
+                    //shifts values to next item over in arraylist
+                    current = arr.get(nestedIndex + 1);
+                    nestedIndex++;
+                    nestedAmount++;
+                }
+                
+                //If the series of items that occured in nested is larger than the previous largest series
+                if(nestedAmount > amount)
+                {
+                    //Sets new mode and amount
+                    mode = current;
+                    amount = nestedAmount;
+                }
+
+                i = nestedIndex;   //goes to where the nested loop left off.
+
+            }
+            
+        }
+        return mode;
+    }
 	
 	public String displayData() {
 
