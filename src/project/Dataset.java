@@ -279,10 +279,59 @@ public class Dataset {
 	 */
 	public String displayGraph() {
 		
-		//
+		
+		int[] bins = binCreator();  //bins holds number of data points with in each 10%
+		
+		String graph = " 0% to   9%| ";
+		
+		//For formatting to be correct I handle 0%-9% and 90%-100% seperately
+		
+		for(int i = 0; i < bins[0]; i++)  //loops for # of times there are values in bin 0-9%
+		{
+			graph = graph + "*";          
+		}
+		graph = graph + "\n";
+		
+		//Handles all bins from 10%-19% to 80% - 89%
+		for(int i = 1; i <= 8; i++)
+		{
+			graph = graph + i + "0% to  " + i + "9%| ";  //creates the string on left part of graph like "10% - 19%"
+			
+			for(int j = 0; j < bins[i]; j++)
+			{
+				graph = graph + "*";
+			}
+			graph = graph + "\n";
+		}
 		
 		
-		return "";
+		//Handles bin 90% to 100%
+		graph = graph + "90% to 100%| ";
+		for(int i = 0; i < bins[9]; i++)
+		{
+			graph = graph + "*";
+		}
+		graph = graph + "\n";
+		
+		return graph;
+	}
+	
+	/**
+	 * Helper function to displayGraph. Figures out how many data values are in each 10% segment.
+	 * 
+	 * @return integer array of number of data points in each 10% bin
+	 */
+	private int[] binCreator()
+	{
+		int[] bins = new int[10];  //holds the number in each 10% bin. 0th bin being 0 <= point < 10
+		int range = (upperBound - lowerBound)/10;
+		
+		for(int i = 0; i < arr.size(); i++)  //loops through every number in dataset
+		{
+			
+		}
+		
+		return bins;
 	}
 	
 	
