@@ -103,8 +103,14 @@ public class Dataset {
 	 * @return the string used to be printed into the big display log
 	 */
 	public String analyzeData() {
-		//TODO: figure this out
-		return "";
+		//TODO: May need to figure out where error handling is needed.
+		
+		//REMEMBER TO ADD HISTORY LOG 
+		
+		String analysis = "Mean: " + findMean() + "\n";
+		analysis = analysis + "Median: " + findMedian() + "\n";
+		analysis = analysis + "Mode: " + findMode() + "\n";
+		return analysis;
 	}
 	
 	/**
@@ -113,6 +119,9 @@ public class Dataset {
 	 * @return
 	 */
 	private float findMedian() {
+		
+		//REMEMBER TO ADD HISTORY LOG 
+		
 		float middle = arr.size()/2;
 		//when the length is odd
 		if (arr.size() % 2 == 1) {
@@ -132,6 +141,9 @@ public class Dataset {
 	 */
 	private float findMean()
 	{
+		
+		//REMEMBER TO ADD HISTORY LOG 
+		
 		float mean = (float) 0.0;
 		float sum = (float) 0.0;
 		
@@ -152,6 +164,9 @@ public class Dataset {
      */
     private float findMode()    //Part of the logic of this method relies on the dataset being sorted and having at least 1 item
     {
+    	
+    	//REMEMBER TO ADD HISTORY LOG 
+    	
         float mode = arr.get(1);
         int amount = 1;  //amount 'mode' appears in dataset
 
