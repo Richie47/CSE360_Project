@@ -258,8 +258,12 @@ public class Dataset {
 	}
 	
 
-	
-	public String displayGraph(int upperBound) {
+	/**
+	 * Creates a veritical ascii bar graph of all the data entries with in the dataset.
+	 * 
+	 * @return formatted string of ascii bar graph.
+	 */
+	public String displayGraph() {
 		return "";
 	}
 	
