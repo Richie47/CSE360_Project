@@ -57,4 +57,11 @@ public class ErrorReporter {
 		return errorHistory;
 	}
 	
+	/**
+	 * clears the error history
+	 */
+	public void clearErrorHistory() {
+		errorHistory = "";
+	}
+	
 }
