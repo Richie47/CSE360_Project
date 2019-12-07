@@ -1,4 +1,20 @@
 
+
+/**
+ *  the design class implements the error report functions and returns the error report to the main app.
+ *  
+ *  @author Shashank Ginjpalli
+ *  @author Wyatt Turner
+ *  @author Richard McKinnon
+ *  @author Rachel Ware
+ *  @version 1.0
+ *  
+ *  @team 14
+ * 
+ *  Class ID: 70641
+ *  Final Project
+ */
+
 package project;
 
 

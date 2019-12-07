@@ -1,3 +1,20 @@
+
+/**
+ *  the design class implements the frontend UI for the project
+ *  
+ *  @author Shashank Ginjpalli
+ *  @author Wyatt Turner
+ *  @author Richard McKinnon
+ *  @author Rachel Ware
+ *  @version 1.0
+ *  
+ *  @team 14
+ * 
+ *  Class ID: 70641
+ *  Final Project
+ */
+
+
 package project;
 
 import java.awt.*;	//several functions used to build the GUI

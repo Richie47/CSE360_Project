@@ -1,3 +1,21 @@
+/**
+ *  the dataset class implements the calculation functions for the app and creates the graph
+ *  
+ *  @author Shashank Ginjpalli
+ *  @author Wyatt Turner
+ *  @author Richard McKinnon
+ *  @author Rachel Ware
+ *  @version 1.0
+ *  
+ *  @team 14
+ * 
+ *  Class ID: 70641
+ *  Final Project
+ */
+
+
+
+
 package project;
 
 import java.io.File;

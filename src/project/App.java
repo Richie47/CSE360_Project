@@ -1,6 +1,19 @@
+
 /**
-* The App class opens the GUI to run the project.
-*/
+ *  implements the main for the function and adds the view
+ *  
+ *  @author Shashank Ginjpalli
+ *  @author Wyatt Turner
+ *  @author Richard McKinnon
+ *  @author Rachel Ware
+ *  @version 1.0
+ *  
+ *  @team 14
+ * 
+ *  Class ID: 70641
+ *  Final Project
+ */
+
 package project;
 
 import java.awt.EventQueue;
