@@ -12,10 +12,10 @@ import javax.swing.*; //several functions used to build the GUI
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
-
 public class Design {
-
-	private Dataset ca = new Dataset();
+	
+	ErrorReporter ErrorLog = new ErrorReporter();
+	private Dataset ca = new Dataset(ErrorLog);
 
 	JFrame appMain; //central app
 
@@ -32,7 +32,8 @@ public class Design {
 	 */
 	private void createApp() {
 		
-		Dataset ds = new Dataset();
+		ErrorReporter newError = new ErrorReporter();
+		Dataset ds = new Dataset(ErrorLog);
 		
 		
 	
@@ -130,8 +131,11 @@ public class Design {
 				upper = JOptionPane.showInputDialog(null, "Enter upper range (default = 100)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
 				
 				//set the values in DataSet class.
-				ds.lowerBound = Integer.parseInt(lower);
-				ds.upperBound = Integer.parseInt(upper);
+				int lowerBound = Integer.parseInt(lower);
+				int upperBound = Integer.parseInt(upper);
+				ds.setBoundaries(lowerBound, upperBound);
+				
+				//TODO Error check boundaries.
 				
 				textArea.append("Lower and upper bounds updated!\n");
 				
@@ -178,12 +182,22 @@ public class Design {
 			public void actionPerformed(ActionEvent e) {
 				String response;
 				response = JOptionPane.showInputDialog(null, "Enter value to add", "Add Value", JOptionPane.PLAIN_MESSAGE);
-				if ((response != null) && (response.length() > 0)) {
-					float value = Float.parseFloat(response);
-									
+				boolean isValid = ds.isNumeric(response);
+				if(isValid) {
+					boolean isAdded = ds.addValue(Float.parseFloat(response));
+					if(isAdded) {
+						textArea.append("Value {" + response + "} added successfully\n");
+					}
+					else {
+						textArea.append("Value {" + response + "} was not added\n");
+					}
+					}
+				
+				else {
+					textArea.append("{" + response + "} is not a valid float value. Will not be added\n" );
 				}
-				}
-			}
+				
+			} }
 		);
 		matrix.gridx = 0;
 		matrix.gridy = 1;
@@ -195,9 +209,18 @@ public class Design {
 			public void actionPerformed(ActionEvent e) {
 				String response;
 				response = JOptionPane.showInputDialog(null, "Enter value to delete", "Delete Value", JOptionPane.PLAIN_MESSAGE);
-				if ((response != null) && (response.length() > 0)) {
-					float value = Float.parseFloat(response);
-					
+				
+				boolean isValid = ds.isNumeric(response);
+				if(isValid) {
+					boolean isDeleted = ds.deleteValue(Float.parseFloat(response));
+					if(isDeleted) {
+						textArea.append("Value {" + response+ "} was found and deleted!\n");
+					}
+				
+				}
+				
+				else {
+					textArea.append("Value {" + response + "} was not valid, will not be added\n");
 				}
 			}
 		});
@@ -255,7 +278,7 @@ public class Design {
 		
 		// EXPORT REPORT BUTTON CODE
 		JButton btnExport = new JButton("Export Report");
-
+		
 	
 		matrix.gridy = 4;
 		mainPanel.add(btnExport, matrix);
