@@ -102,24 +102,6 @@ public class Dataset {
 		return false;
 	}
 	
-	/**
-	 * Overloaded method: Checks whether the values in the arrayList are in bounds
-	 * 	For use in appendData method
-	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case the GUI method that called
-	 * this will empty the array
-	 */
-	public Boolean checkForOutOfBounds(ArrayList<Float> arr) {
-		// check for values greater than upper bound
-		for (int i = 0; i < arr.size(); i++) {
-			float value = arr.get(i);
-			if (value > upperBound || value < lowerBound) {
-				//do something
-				return true;
-			}
-		}
-		
-		return false;
-	}
 	
 	/**
 	 * Gathers info on the data set like mean, median, mode. 
@@ -376,6 +358,7 @@ public class Dataset {
 		if(!valuePresent)  //if value not found.
 		{
 			historyLog = historyLog + "Could not remove " + value + " from data set.\n";
+			ErrorLog.createError("Error: Value not Found, failure to remove " + value);
 		}
 		
 		return valuePresent;
@@ -513,6 +496,7 @@ public class Dataset {
 		
 		return average;
 	}
+	
 	
 	/**
 	 * Creates a veritical ascii bar graph of all the data entries with in the dataset.
@@ -787,6 +771,12 @@ public class Dataset {
 	}
 	
 	
+	/**
+	 * Checks whether input can be converted to a float.
+	 * 
+	 * @param strNum the inputted string in question
+	 * @return true if input can be turned into a float.
+	 */
 	public boolean isNumeric(String strNum) {
 		if (strNum == null) {
 			ErrorLog.createError("User Did not enter a value");
