@@ -656,11 +656,11 @@ public class Dataset {
 			PrintWriter writer = new PrintWriter("report.txt", "UTF-8");
 			writer.print(historyLog);
 			writer.close();
-			return "Report created in report.txt";
+			return "Report created in report.txt in same directory.\n";
 		}catch (Exception e)
 		{
 			historyLog += "Failed report creation\n";
-			return "Unable to create report.";
+			return "Unable to create report.\n";
 		}
 		
 	}
