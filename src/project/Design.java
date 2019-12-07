@@ -14,8 +14,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Design {
-
-	private Dataset ca = new Dataset();
+	
+	private ErrorReporter ErrorLog = new ErrorReporter();
+	private Dataset ca = new Dataset(ErrorLog);
 
 	JFrame appMain; //central app
 
@@ -88,6 +89,7 @@ public class Design {
 				lower = JOptionPane.showInputDialog(null, "Enter lower range (default = 0)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
 				upper = JOptionPane.showInputDialog(null, "Enter upper range (default = 100)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
 				
+				//TODO Check to make sure values not empty, and maybe also lowerbound is in fact < upperBound
 				
 			}
 		});
@@ -141,6 +143,7 @@ public class Design {
 					float value = Float.parseFloat(response);
 									
 				}
+				//TODO Maybe call errorlog here if empty? may choose to ignore
 				}
 			}
 		);
