@@ -14,8 +14,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Design {
-
-	private Dataset ca = new Dataset();
+	
+	private ErrorReporter ErrorLog = new ErrorReporter();
+	private Dataset ca = new Dataset(ErrorLog);
 
 	JFrame appMain; //central app
 
