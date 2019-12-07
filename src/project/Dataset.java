@@ -436,7 +436,7 @@ public class Dataset {
 		return false;
 	}
 
-	public String showDistribution(int upperBound) {
+	public String showDistribution() {
 		String output = "";
 		int[] bins = binCreator();
 		Float [] average = calculateAveragePerRange();
