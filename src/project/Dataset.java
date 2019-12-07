@@ -528,6 +528,14 @@ public class Dataset {
 	 */
 	public String displayGraph() {
 		
+		//check for empty dataset
+		if(dataIsEmpty())
+		{
+			historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
+			ErrorLog.createError("Error: Failure to Graph, no dataset");
+			return "Unable to graph, no dataset.\n";
+		}
+		
 		historyLog = historyLog + "Displayed graph of data set.\n";
 		
 		int[] bins = binCreator();  //bins holds number of data points with in each 10%
