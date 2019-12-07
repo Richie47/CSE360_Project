@@ -17,6 +17,21 @@ public class Dataset {
 	private int lowerBound = 0; //current lower bound default 0
 	private int upperBound = 100; //current upper bound default 100
 	
+	
+	// Array Lists in order to store the grades 
+	private ArrayList<Float> dist0 = new ArrayList<Float>();
+	private ArrayList<Float> dist1 = new ArrayList<Float>();
+	private ArrayList<Float> dist2 = new ArrayList<Float>();
+	private ArrayList<Float> dist3 = new ArrayList<Float>();
+	private ArrayList<Float> dist4 = new ArrayList<Float>();
+	private ArrayList<Float> dist5 = new ArrayList<Float>();
+	private ArrayList<Float> dist6 = new ArrayList<Float>();
+	private ArrayList<Float> dist7 = new ArrayList<Float>();
+	private ArrayList<Float> dist8 = new ArrayList<Float>();
+	private ArrayList<Float> dist9 = new ArrayList<Float>();
+	
+	
+	
 	/*
 	 * Constructor for Dataset
 	 */
@@ -338,8 +353,47 @@ public class Dataset {
 	}
 
 	public String showDistribution(int upperBound) {
+		String output = "";
+		int[] bins = binCreator();
+		Float [] average = calculateAveragePerRange();
 		
-		return "";
+		return output;
+	}
+	
+	private Float[] calculateAveragePerRange() {
+		Float [] average = new Float[10];
+		
+		for(int i = 0; i < average.length; i ++) {
+			average[i] = (float) 0;
+		}
+		
+		ArrayList [] distributions = new ArrayList[10];
+		
+		distributions[0] = dist0;
+		distributions[1] = dist1;
+		distributions[2] = dist2;
+		distributions[3] = dist3;
+		distributions[4] = dist4;
+		distributions[5] = dist5;
+		distributions[6] = dist6;
+		distributions[7] = dist7;
+		distributions[8] = dist8;
+		distributions[9] = dist9;
+		
+		
+		for(int list = 0; list <= 9; list ++) {
+			Float sum = (float) 0;
+			for(int j = 0; j < distributions[list].size(); j ++ ) {
+				ArrayList<Float> temp = new ArrayList<Float>();
+				temp = distributions[list];
+				Float val = temp.get(j);
+				sum += val;
+			}
+			
+			average[list] = (float) (sum/(distributions[list].size()));
+		}
+		
+		return average;
 	}
 	
 	/**
@@ -405,33 +459,43 @@ public class Dataset {
 			
 			if(percent >= 0 && percent < 10) {
 				bins[0] ++;
+				dist0.add(percent);
 			}
 			if(percent >= 10 && percent < 20) {
 				bins[1] ++;
+				dist1.add(percent);
 			}
 			if(percent >= 20 && percent < 30) {
 				bins[2] ++;
+				dist2.add(percent);
 			}
 			if(percent >= 30 && percent < 40) {
 				bins[3] ++;
+				dist3.add(percent);
 			}
 			if(percent >= 40 && percent < 50) {
 				bins[4] ++;
+				dist4.add(percent);
 			}
 			if(percent >= 50 && percent < 60) {
 				bins[5] ++;
+				dist5.add(percent);
 			}
 			if(percent >= 60 && percent < 70) {
 				bins[6] ++;
+				dist6.add(percent);
 			}
 			if(percent >= 70 && percent < 80) {
 				bins[7] ++;
+				dist7.add(percent);
 			}
 			if(percent >= 80 && percent < 90) {
 				bins[8] ++;
+				dist8.add(percent);
 			}
 			if(percent >= 90 && percent <= 100) {
 				bins[9] ++;
+				dist9.add(percent);
 			}
 			
 
