@@ -124,20 +124,23 @@ public class Design {
 		
 		//add top row buttons
 		mainPanel.add(btnSetBounds, matrix);
+
 		btnSetBounds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String lower, upper;
 				lower = JOptionPane.showInputDialog(null, "Enter lower range (default = 0)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
 				upper = JOptionPane.showInputDialog(null, "Enter upper range (default = 100)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
-				
-				//set the values in DataSet class.
-				int lowerBound = Integer.parseInt(lower);
-				int upperBound = Integer.parseInt(upper);
-				ds.setBoundaries(lowerBound, upperBound);
-				
-				//TODO Error check boundaries.
-				
-				textArea.append("Lower and upper bounds updated!\n");
+				int lowerBound = 0;
+				int upperBound = 100;
+		
+				if(ds.isNumeric(lower) && ds.isNumeric(upper)) {
+					lowerBound = Integer.parseInt(lower);
+					upperBound = Integer.parseInt(upper);
+					ds.setBoundaries(lowerBound, upperBound);
+					
+				}
+		
+				textArea.append("Lower and upper bounds updated to " + lowerBound + " and " + upperBound + "\n");
 				
 			}
 		});
@@ -291,7 +294,6 @@ public class Design {
 		/**
 		// START OVER BUTTON CODE
 		JButton btnStartOver = new JButton("Start Over");
-
 		btnStartOver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					
