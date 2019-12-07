@@ -440,17 +440,35 @@ public class Dataset {
 		String output = "";
 		int[] bins = binCreator();
 		Float [] average = calculateAveragePerRange();
+		String averageString = "";
 		
 		output = output + "   Range \t# \tAverage \n";
 		output = output + "----------------------------------\n";
-		
-		output = output + "    0% - 9%: \t" + bins[0] + "\t" + average[0] + "\n";
-		
-		for(int i = 1; i <= 8; i ++) {
-			output = output +"   " + i +  "0% -" + i + "9%: \t" + bins[i] + "\t" + average[i] + "\n";
+		if (average[0] == 0.0) {
+			averageString = "----";
+		}else {
+			averageString = Float.toString(average[0]);
 		}
 		
-		output = output + " 90% - 100%: \t" + bins[9] + "\t" + average[9] + "\n";
+		output = output + "    0% - 9%: \t" + bins[0] + "\t" + averageString + "\n";
+		
+		for(int i = 1; i <= 8; i ++) {
+			if (average[i] == 0.0) {
+				averageString = "----";
+			}else {
+				averageString = Float.toString(average[i]);
+			}
+			
+			output = output +"   " + i +  "0% -" + i + "9%: \t" + bins[i] + "\t" + averageString + "\n";
+		}
+		
+		if (average[9] == 0.0) {
+			averageString = "----";
+		}else {
+			averageString = Float.toString(average[9]);
+		}
+		
+		output = output + " 90% - 100%: \t" + bins[9] + "\t" + averageString + "\n";
 		
 		return output;
 	}
