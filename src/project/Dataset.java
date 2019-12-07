@@ -537,7 +537,8 @@ public class Dataset {
 		{
 			graph = graph + "*";          
 		}
-		graph = graph + "(" + bins[0] + ")\n";
+		//graph = graph + "      (" + bins[0] + ")\n";
+		graph = graph + "\n";
 		
 		//Handles all bins from 10%-19% to 80% - 89%
 		for(int i = 1; i <= 8; i++)
@@ -548,7 +549,8 @@ public class Dataset {
 			{
 				graph = graph + "*";
 			}
-			graph = graph + "(" + bins[i] + ")\n";
+			//graph = graph + "      (" + bins[i] + ")\n";
+			graph = graph + "\n";
 		}
 		
 		
@@ -558,8 +560,8 @@ public class Dataset {
 		{
 			graph = graph + "*";
 		}
-		graph = graph + "(" + bins[9] + ")\n";
-		
+		//graph = graph + "      (" + bins[9] + ")\n";
+		graph = graph + "\n";
 		return graph;
 	}
 	
