@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 
 public class Dataset {
 	private ArrayList<Float> arr = new ArrayList<Float>();  //used to store extracted input
+	private ErrorReporter ErrorLog;
 	private String historyLog; //used for the overall export history
 	private int lowerBound = 0; //current lower bound default 0
 	private int upperBound = 100; //current upper bound default 100
@@ -20,9 +21,10 @@ public class Dataset {
 	/*
 	 * Constructor for Dataset
 	 */
-	public Dataset(ArrayList<Float> array) {
-		arr = array;
-		sort();
+	public Dataset(ErrorReporter errorLog) {
+		ErrorLog = errorLog;
+		//arr = array;
+		//sort();
 	}
 	
 	//op2
@@ -443,7 +445,7 @@ public class Dataset {
 		{
 			graph = graph + "*";          
 		}
-		graph = graph + "\n";
+		graph = graph + "(" + bins[0] + ")\n";
 		
 		//Handles all bins from 10%-19% to 80% - 89%
 		for(int i = 1; i <= 8; i++)
@@ -454,7 +456,7 @@ public class Dataset {
 			{
 				graph = graph + "*";
 			}
-			graph = graph + "\n";
+			graph = graph + "(" + bins[i] + ")\n";
 		}
 		
 		
@@ -464,7 +466,7 @@ public class Dataset {
 		{
 			graph = graph + "*";
 		}
-		graph = graph + "\n";
+		graph = graph + "(" + bins[9] + ")\n";
 		
 		return graph;
 	}
