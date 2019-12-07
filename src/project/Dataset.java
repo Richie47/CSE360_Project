@@ -56,10 +56,11 @@ public class Dataset {
 		try { //check that file exists
 			String fileName = file.getName();
 		} catch (FileNotFoundException e) {
-			errorLog.createError("File not found"); //file not found error
+			ErrorLog.createError("File not found"); //file not found error
 			fileExists = false;
 		}
 		if (fileExists) {
+			
 			//call the correct parse for file
 			if (fileName.toLowerCase().contains(".txt")) {
 				arr = parseTxt(file); //set dataset to the file input
@@ -71,6 +72,7 @@ public class Dataset {
 			else {
 				arr = parseTxt(file);
 			}
+			
 		}
 		
 		//fix up after adding data
@@ -160,7 +162,7 @@ public class Dataset {
 		Boolean dataInvalid = checkForOutOfBounds();
 		if (dataInvalid == false) {
 			//give error
-			errorLog.createError("Previously entered data out of bounds");
+			ErrorLog.createError("Previously entered data out of bounds");
 			//delete data or no?
 		}
 		return dataInvalid; //or give error on return
