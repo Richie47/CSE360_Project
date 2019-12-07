@@ -202,11 +202,11 @@ public class Dataset {
 		
 		//REMEMBER TO ADD HISTORY LOG 
 		float middle = arr.size()/2;
-		//when the length is odd
-		if (arr.size() % 2 == 1) {
+		//when the length is even
+		if (arr.size() % 2 == 0) {
 			middle = (arr.get(arr.size()/2) + arr.get(arr.size()/2 - 1))/2;;
 	    } 
-		//when the length is even
+		//when the length is odd
 		else {
 			middle = arr.get(arr.size() / 2);
 	    }
