@@ -703,7 +703,7 @@ public class Dataset {
 					ErrorLog.createError("Violation at index: " + count + " this invalid character {" + curEntry + "} is not a valid float value. File rejected");
 					return "Violation at index: " + count + " this invalid character {" + curEntry + "} is not a valid float value. File rejected\n";
 				}
-				float next = Float.parseFloat(s.nextLine()); // otherwise we go parse
+				float next = Float.parseFloat(curEntry); // otherwise we go parse
 				if(checkForOutOfBounds(next) == false) {
 					arr.add(next);
 				}
@@ -719,9 +719,10 @@ public class Dataset {
 				return "File appeared to be empty, please try again\n";
 			}
 			
+
 			s.close();
 			ErrorLog.createError("File appeared to be empty, please try again");
-			sort();
+
 			return "Import from File\nData from file \"" + file.getName() + "\" has been added successfully.\n\n";
 		} catch (FileNotFoundException e) {
 		ErrorLog.createError("Error File not Found");
@@ -770,7 +771,7 @@ public class Dataset {
 				ErrorLog.createError("File appeared to be empty, please try again");
 				return "File appeared to be empty, please try again\n";
 			}
-			sort();
+			
 			return "Import from File\nData from file \"" + file.getName() + "\" has been added successfully.\n\n";
 		} catch (FileNotFoundException e) {
 			//error person do this part
