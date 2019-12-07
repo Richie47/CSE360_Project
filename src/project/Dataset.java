@@ -242,6 +242,7 @@ public class Dataset {
      */
     
     public String displayData() {
+    	sort();
     	
     	//check for empty dataset
     			if(dataIsEmpty())
@@ -420,6 +421,7 @@ public class Dataset {
 	 * @return
 	 */
 	public String showDistribution() {
+		sort();
 		
 		//check for empty dataset
 		if(dataIsEmpty())
@@ -528,6 +530,7 @@ public class Dataset {
 	 * @return formatted string of ascii bar graph.
 	 */
 	public String displayGraph() {
+		sort();
 		
 		//check for empty dataset
 		if(dataIsEmpty())

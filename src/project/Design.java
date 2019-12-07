@@ -101,8 +101,8 @@ public class Design {
 						return;
 					}
 					
-					textArea.append(parsed);
-					textArea.append(ds.printArray());
+					textArea.append(parsed + "\n");
+					textArea.append(ds.printArray() + "\n");
 				}
 				else {
 					textArea.append("Data was not added due to unknown error\n");
