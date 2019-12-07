@@ -649,8 +649,9 @@ public class Dataset {
 	}
 	
 	/**
-	 * Sends report info to be made into a report file.
-	 * @return historyLog - log of all actions
+	 * Sends report info to the report.txt file. 
+	 * 
+	 * @return String on success of writing
 	 */
 	public String createReport() {
 		
