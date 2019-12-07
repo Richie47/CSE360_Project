@@ -669,6 +669,7 @@ public class Dataset {
 				String curEntry = s.nextLine();
 				
 				if(isNumeric(curEntry) == false) {
+					ErrorLog.createError("Violation at index: " + count + " this invalid character {" + curEntry + "} is not a valid float value. File rejected");
 					return "Violation at index: " + count + " this invalid character {" + curEntry + "} is not a valid float value. File rejected\n";
 				}
 				float next = Float.parseFloat(s.nextLine()); // otherwise we go parse
@@ -676,6 +677,7 @@ public class Dataset {
 					arr.add(next);
 				}
 				else {
+					ErrorLog.createError("Violation at index: " + count + " the number {" + next + "} is out of bounds. File has not been added");
 					return "Violation on line " + count + " the number {" + next +"} is out of bounds. File has not been added\n";
 				}
 				count++;
@@ -687,10 +689,11 @@ public class Dataset {
 			}
 			
 			s.close();
+			ErrorLog.createError("File appeared to be empty, please try again");
 			return "Import from File\nData from file \"" + file.getName() + "\" has been added successfully.\n\n";
 		} catch (FileNotFoundException e) {
-		//Error person do this part	
-		return null;
+		ErrorLog.createError("Error File not Found");
+		return "Error File not Found";
 		}
 	}
 
@@ -710,6 +713,7 @@ public class Dataset {
 				String[] data = s.nextLine().split(",");
 				for (String d: data) {
 					if(isNumeric(d) == false) {
+						ErrorLog.createError("Violation at index: " + count + " this invalid character {" + d + "} is not a valid float value. File rejected");
 						return "Violation at index: " + count + " this invalid character {" + d + "} is not a valid float value. File rejected\n";
 					}
 					if(checkForOutOfBounds(Float.parseFloat(d)) == false) {
@@ -717,8 +721,10 @@ public class Dataset {
 					}
 					
 					else {
-						//work with shashank
+
 						arr.clear(); // clear array because of BOUNDS violation
+						ErrorLog.createError("Violation at index: " + count + " the number {" + d + "} is out of bounds. File has not been added");
+
 						return "Violation at index: " + count + " the number {" + d + "} is out of bounds. File has not been added\n";
 						
 					}
@@ -729,13 +735,14 @@ public class Dataset {
 
 			s.close();
 			if(arr.size() == 0) {
+				ErrorLog.createError("File appeared to be empty, please try again");
 				return "File appeared to be empty, please try again\n";
 			}
-			//shashank
 			return "Import from File\nData from file \"" + file.getName() + "\" has been added successfully.\n\n";
 		} catch (FileNotFoundException e) {
 			//error person do this part
-			return "some error";
+			ErrorLog.createError("Error CSV not Found");
+			return "Error CSV not Found";
 		}
 	}
 	
