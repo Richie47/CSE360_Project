@@ -358,6 +358,7 @@ public class Dataset {
 		if(!valuePresent)  //if value not found.
 		{
 			historyLog = historyLog + "Could not remove " + value + " from data set.\n";
+			ErrorLog.createError("Error: Value not Found, failure to remove " + value);
 		}
 		
 		return valuePresent;
