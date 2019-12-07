@@ -21,6 +21,7 @@ public class Dataset {
 	private String historyLog; //used for the overall export history
 	private int lowerBound = 0; //current lower bound default 0
 	private int upperBound = 100; //current upper bound default 100
+	private int bounds = 0; 
 	
 	// Array Lists in order to store the grades 
 	private ArrayList<Float> dist0 = new ArrayList<Float>();
@@ -74,13 +75,24 @@ public class Dataset {
 		lowerBound = lower;
 		upperBound = upper;
 		
+		if(lowerBound >= upperBound) {
+			ErrorLog.createError("Lower Bound > Upper Bound Error");
+			return false;
+		}
+		
+		
 		historyLog += "User Set Bounds  ----  Lower Bound: " + lowerBound + "Upper Bound: " + upperBound +"\n"; 
 		
 		Boolean dataInvalid = checkForOutOfBounds();
 		
-		if(arr.size() == 0) {
+		
+		
+		if(bounds == 0) {
 			return true;
 		}
+		
+		bounds ++;
+		
 		if (dataInvalid == false) {
 			//give error
 			ErrorLog.createError("Previously entered data out of bounds");
