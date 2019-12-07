@@ -703,7 +703,7 @@ public class Dataset {
 					ErrorLog.createError("Violation at index: " + count + " this invalid character {" + curEntry + "} is not a valid float value. File rejected");
 					return "Violation at index: " + count + " this invalid character {" + curEntry + "} is not a valid float value. File rejected\n";
 				}
-				float next = Float.parseFloat(s.nextLine()); // otherwise we go parse
+				float next = Float.parseFloat(curEntry); // otherwise we go parse
 				if(checkForOutOfBounds(next) == false) {
 					arr.add(next);
 				}
