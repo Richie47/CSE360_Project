@@ -42,6 +42,7 @@ public class Dataset {
 	 */
 	public Dataset(ErrorReporter errorLog) {
 		ErrorLog = errorLog;
+		historyLog = "";
 		//arr = array;
 		//sort();
 	}
