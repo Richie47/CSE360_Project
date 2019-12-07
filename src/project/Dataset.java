@@ -437,13 +437,23 @@ public class Dataset {
 		return false;
 	}
 
+	
+	/**
+	 * Creates the output string of the distributions and the average 
+	 * @return
+	 */
 	public String showDistribution() {
 		String output = "";
+		// gets the number for the different ranges
 		int[] bins = binCreator();
+		// gets the average for each bracket
 		Float [] average = calculateAveragePerRange();
+		
+		
+		// creating the output table for distributions
 		String averageString = "";
 		
-		output = output + "   Range \t# \tAverage \n";
+		output = output + "   Range \t# \tAverage(%) \n";
 		output = output + "----------------------------------\n";
 		if (average[0] == 0.0) {
 			averageString = "----";
@@ -460,14 +470,14 @@ public class Dataset {
 				averageString = Float.toString(average[i]);
 			}
 			
-			output = output +"   " + i +  "0% -" + i + "9%: \t" + bins[i] + "\t" + averageString + "\n";
+			output = output +"  " + i +  "0% - " + i + "9%: \t" + bins[i] + "\t" + averageString + "\n";
 		}
 		
 		if (average[9] == 0.0) {
 			averageString = "----";
 		}else {
 			averageString = Float.toString(average[9]);
-		}
+		} 
 		
 		output = output + " 90% - 100%: \t" + bins[9] + "\t" + averageString + "\n";
 		
@@ -476,16 +486,18 @@ public class Dataset {
 	
 	/**
 	 * Takes the grades from each distribution and creates an average out of them
-	 * @return
+	 * @return average array that contains average for each bracket
 	 */
 	
 	private Float[] calculateAveragePerRange() {
 		Float [] average = new Float[10];
 		
+		// initializing the average array to 0
 		for(int i = 0; i < average.length; i ++) {
 			average[i] = (float) 0;
 		}
 		
+		// making an array of type arraylist to access the different distributions
 		ArrayList [] distributions = new ArrayList[10];
 		
 		distributions[0] = dist0;
@@ -499,9 +511,10 @@ public class Dataset {
 		distributions[8] = dist8;
 		distributions[9] = dist9;
 		
-		
+		// used to iterate through the distributions array
 		for(int list = 0; list <= 9; list ++) {
 			Float sum = (float) 0;
+			// used to iterate through each distribution
 			for(int j = 0; j < distributions[list].size(); j ++ ) {
 				ArrayList<Float> temp = new ArrayList<Float>();
 				temp = distributions[list];
@@ -509,6 +522,7 @@ public class Dataset {
 				sum += val;
 			}
 			
+			// sets the average to 0 if there is nothing in the distributions arrayList
 			if(distributions[list].size() != 0) {
 				average[list] = (float) (sum/(distributions[list].size()));
 			}else {
@@ -580,6 +594,8 @@ public class Dataset {
 			Float val = arr.get(i);
 			Float percent = (val/upperBound)*100;
 			
+			
+			// add to the appropriate bin and the appropriate distribution array
 			if(percent >= 0 && percent < 10) {
 				bins[0] ++;
 				dist0.add(percent);
