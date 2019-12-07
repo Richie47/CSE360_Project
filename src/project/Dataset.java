@@ -496,6 +496,7 @@ public class Dataset {
 		return average;
 	}
 	
+	
 	/**
 	 * Creates a veritical ascii bar graph of all the data entries with in the dataset.
 	 * 
