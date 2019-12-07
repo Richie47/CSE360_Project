@@ -278,21 +278,28 @@ public class Design {
 		
 		// EXPORT REPORT BUTTON CODE
 		JButton btnExport = new JButton("Export Report");
-		
+		btnExport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String confirmation = ds.createReport();
+				textArea.append(confirmation + "\n");
+			}
+			}
+		);
 	
 		matrix.gridy = 4;
 		mainPanel.add(btnExport, matrix);
-		
+		/**
 		// START OVER BUTTON CODE
 		JButton btnStartOver = new JButton("Start Over");
 
 		btnStartOver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+					
 			}
 		});
 		matrix.gridy = 6;
 		mainPanel.add(btnStartOver, matrix);
+		**/
 		
 		matrix.gridx = 2; //display right side buttons
 		
@@ -301,7 +308,8 @@ public class Design {
 		JButton btnDisplayData = new JButton("Display Data");
 		btnDisplayData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		
+					String data = ds.displayData();
+					textArea.append(data + "\n");
 			}
 		});
 		matrix.gridy = 1;
@@ -312,7 +320,8 @@ public class Design {
 		JButton btnAnalyzeData = new JButton("Analyze Data");
 		btnAnalyzeData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {			
-	
+					String data = ds.analyzeData();
+					textArea.append(data + "\n");
 			}
 		});
 
@@ -321,11 +330,23 @@ public class Design {
 		
 		// DISPLAY GRAPH BUTTON CODE
 		JButton btnDisplayGraph = new JButton("Display Graph");
+		btnAnalyzeData.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {			
+					String data = ds.displayGraph();
+					textArea.append(data + "\n");
+			}
+		});
 		matrix.gridy = 3;
 		mainPanel.add(btnDisplayGraph, matrix);
 				
 		// SHOW DISTRIBUTION BUTTON CODE
 		JButton btnShowDistribution = new JButton("Show Distribution");
+		btnAnalyzeData.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {			
+					String data = ds.showDistribution();
+					textArea.append(data + "\n");
+			}
+		});
 		matrix.gridy = 4;
 		mainPanel.add(btnShowDistribution, matrix);
 		
