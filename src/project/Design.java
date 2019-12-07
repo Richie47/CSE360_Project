@@ -14,7 +14,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Design {
-	
 	private ErrorReporter ErrorLog = new ErrorReporter();
 	private Dataset ca = new Dataset(ErrorLog);
 
@@ -67,7 +66,7 @@ public class Design {
 					FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text", "csv");
 					fileChooser.setFileFilter(filter);
 					File file = fileChooser.getSelectedFile();
-					
+					ca.parseFile(file);
 					
 				
 			}});
