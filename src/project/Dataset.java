@@ -204,7 +204,7 @@ public class Dataset {
 		float middle = arr.size()/2;
 		//when the length is odd
 		if (arr.size() % 2 == 1) {
-			middle = (arr.get(arr.size()/2) + arr.get(arr.size()/2 - 1))/2;
+			middle = (arr.get(arr.size()/2) + arr.get(arr.size()/2 - 1))/2;;
 	    } 
 		//when the length is even
 		else {
