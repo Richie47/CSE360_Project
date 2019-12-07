@@ -789,11 +789,13 @@ public class Dataset {
 	
 	public boolean isNumeric(String strNum) {
 		if (strNum == null) {
+			ErrorLog.createError("User Did not enter a value");
 	        return false;
 	    }
 	    try {
 	        float f = Float.parseFloat(strNum);
 	    } catch (NumberFormatException nfe) {
+	    	ErrorLog.createError(strNum + " is not a valid float number. Will not be Added");
 	        return false;
 	    }
 	    return true;
