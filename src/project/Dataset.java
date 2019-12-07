@@ -180,6 +180,9 @@ public class Dataset {
 	 * @return the string with information on dataset's statistical information
 	 */
 	public String analyzeData() {
+		
+		historyLog = historyLog + "Ran Analysis on Data set.\n";
+		
 		//TODO: May need to figure out where error handling is needed.
 		float range = arr.get(0) - arr.get(arr.size() - 1);
 		//REMEMBER TO ADD HISTORY LOG 
@@ -290,6 +293,8 @@ public class Dataset {
     
     public String displayData() {
 
+    	historyLog = historyLog + "Displayed Data Columns.\n";
+    	
         int columnLength = arr.size()/4;    //gets the size of a quarter of the columns.
         
 		int remainder = arr.size()%4;       //remainder used to calculate which of 4 columns need additional value.
@@ -402,7 +407,13 @@ public class Dataset {
 			if (valuePresent == false && arr.get(i) == value) { 
 				valuePresent = true;
 				arr.remove(i);
+				historyLog = historyLog + "Successfully removed " + value + " from data set.\n";
 			}
+		}
+		
+		if(!valuePresent)  //if value not found.
+		{
+			historyLog = historyLog + "Could not remove " + value + " from data set.\n";
 		}
 		
 		return valuePresent;
@@ -419,9 +430,11 @@ public class Dataset {
 		
 		if (value > upperBound || value < lowerBound) {
 			outOfBoundsFlag = true;
+			historyLog = historyLog + "Failed to add value " + value + " to data set. (Out of bounds).\n";
 		}
 		else {
 			arr.add(value);
+			historyLog = historyLog = "Added value " + value + "to data set.\n";
 			sort();
 		}
 		
@@ -446,6 +459,9 @@ public class Dataset {
 	 * @return
 	 */
 	public String showDistribution() {
+		
+		historyLog = historyLog + "Showed distribution of data points.\n";
+		
 		String output = "";
 		// gets the number for the different ranges
 		int[] bins = binCreator();
@@ -543,6 +559,7 @@ public class Dataset {
 	 */
 	public String displayGraph() {
 		
+		historyLog = historyLog + "Displayed graph of data set.\n";
 		
 		int[] bins = binCreator();  //bins holds number of data points with in each 10%
 		
