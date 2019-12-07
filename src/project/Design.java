@@ -32,11 +32,23 @@ public class Design {
 	 */
 	private void createApp() {
 		
+		Dataset ds = new Dataset();
+		
+		
+	
+			
 		appMain = new JFrame("DR.CALLISS AMAZING ANALYTICS");
 		appMain.setBounds(100, 100, 800, 600);
 		appMain.setLocationRelativeTo(null);
 		appMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		appMain.getContentPane().setLayout(null);
+		
+		JPanel mainPanel = new JPanel();
+		// create text area
+		JScrollPane scrollPane = new JScrollPane();
+		JTextArea textArea = new JTextArea(50,200);
+		textArea.setEditable(false);
+		scrollPane.setViewportView(textArea);
 		
 		/**
 		 * Upload Button
@@ -55,25 +67,54 @@ public class Design {
 		 *
 		 *
 		 *CASE .CSV
-		 *TODO: Figure this out probably just separate by comma every line and do something similar above.
+		 * just separate by comma every line and do something similar above.
 		 */
 
 		JButton btnUploadFile = new JButton("Upload File");
 		btnUploadFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-					final JFileChooser fileChooser = new JFileChooser();
-					FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text", "csv");
-					fileChooser.setFileFilter(filter);
-					File file = fileChooser.getSelectedFile();
-					
-					
 				
-			}});
+				// Get file 
+				JFileChooser fc = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text", "csv");
+				fc.setFileFilter(filter);
+				String parsed = "";
+				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					
+					// get selected file
+					File file = fc.getSelectedFile();
+									
+					String typeFile = ds.getExtension(file.getName());
+					JOptionPane.showConfirmDialog(null, file);
+					
+					switch (typeFile) {
+					case "txt":
+						parsed = ds.parseTxt(file);
+						break;
+					case "csv":
+						parsed = ds.parseCsv(file);
+						break;
+					default:
+						//here for error part
+						return;
+					}
+					
+					textArea.append(parsed);
+					textArea.append(ds.printArray());
+				}
+				else {
+					textArea.append("Data was not added due to unknown error");
+				}
+			}
+		}
+		);
+			
 		JButton btnSetBounds = new JButton("SET BOUNDS");
 	
 		
-	    JPanel mainPanel = new JPanel();
+	
+	    
 	    Dimension preferredSize = appMain.getSize();
 	    mainPanel.setPreferredSize(preferredSize);
 		mainPanel.setLayout(new GridBagLayout());
@@ -88,6 +129,11 @@ public class Design {
 				lower = JOptionPane.showInputDialog(null, "Enter lower range (default = 0)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
 				upper = JOptionPane.showInputDialog(null, "Enter upper range (default = 100)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
 				
+				//set the values in DataSet class.
+				ds.lowerBound = Integer.parseInt(lower);
+				ds.upperBound = Integer.parseInt(upper);
+				
+				textArea.append("Lower and upper bounds updated!\n");
 				
 			}
 		});
@@ -107,12 +153,7 @@ public class Design {
 		
 		mainPanel.add(header, matrix);
 		
-		// create text area
-		JScrollPane scrollPane = new JScrollPane();
-		JTextArea textArea = new JTextArea(50,200);
-		textArea.setEditable(false);
-	
-		scrollPane.setViewportView(textArea);
+		
 		// add constraints
 		matrix.gridx = 1;
 		matrix.gridy = 1;
@@ -165,6 +206,47 @@ public class Design {
 		
 		// APPEND DATA FROM FILE CODE
 		JButton btnAppend = new JButton("Append From File");
+		btnAppend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			
+					// Get file 
+					JFileChooser fc = new JFileChooser();
+					FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text", "csv");
+					fc.setFileFilter(filter);
+					String parsed = "";
+					
+					if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+						
+						// get selected file
+						File file = fc.getSelectedFile();
+										
+						String typeFile = ds.getExtension(file.getName());
+						JOptionPane.showConfirmDialog(null, file);
+						ArrayList<Float> list;
+						switch (typeFile) {
+						case "txt":
+							parsed = ds.parseTxt(file);
+							break;
+						case "csv":
+							parsed = ds.parseCsv(file);
+							break;
+						default:
+							//here for error part
+							return;
+						}
+						
+						
+						
+						textArea.append(parsed);
+					
+				}
+					else {
+						textArea.append("File was not of an appropiate extension type, please try again\n");
+					}
+			}}
+		
+		);
 
 	
 		matrix.gridy = 3;

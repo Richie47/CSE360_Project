@@ -14,8 +14,30 @@ import java.io.FileNotFoundException;
 public class Dataset {
 	private ArrayList<Float> arr = new ArrayList<Float>();  //used to store extracted input
 	private String historyLog; //used for the overall export history
-	private int lowerBound = 0; //current lower bound default 0
-	private int upperBound = 100; //current upper bound default 100
+	public int lowerBound = 0; //current lower bound default 0
+	public int upperBound = 100; //current upper bound default 100
+	
+	
+	
+	
+	/**
+	 * returns the name of file type (csv, txt)
+	 * @param filename
+	 * @return either csv or txt 
+	 */
+	public static String getExtension(String fileName) {
+		int lastIndexOfDot = fileName.lastIndexOf('.');
+		 
+		String fileExtension = null;
+		if (lastIndexOfDot > 0) {
+		    fileExtension = fileName.substring(lastIndexOfDot+1);
+		}
+		
+		return fileExtension;
+	}
+	
+	
+	
 	/**
 	 * parse text file,
 	 * there should be one value per line
@@ -24,18 +46,34 @@ public class Dataset {
 	 * else return error message that will be displayed in the error report
 	 * @param file
 	 */
-	public ArrayList<Float> parseTxt(File file)  {
+	public String parseTxt(File file)  {
 		try {
 			Scanner s = new Scanner(file);
-			ArrayList<Float> scores = new ArrayList<Float>();
-			
+	
+			int count = 0;
 			while(s.hasNextLine()) {
-				float next = Float.parseFloat(s.nextLine());
-				scores.add(next);
+				String curEntry = s.nextLine();
+				
+				if(isNumeric(curEntry) == false) {
+					return "Violation at index: " + count + " this invalid character {" + curEntry + "} is not a valid float value. File rejected\n";
+				}
+				float next = Float.parseFloat(s.nextLine()); // otherwise we go parse
+				if(checkForOutOfBounds(next) == false) {
+					arr.add(next);
+				}
+				else {
+					return "Violation on line " + count + " the number {" + next +"} is out of bounds. File has not been added\n";
+				}
+				count++;
+			
+			}
+			
+			if(arr.size() == 0) {
+				return "File appeared to be empty, please try again\n";
 			}
 			
 			s.close();
-			return scores;
+			return "Import from File\nData from file \"" + file.getName() + "\" has been added successfully.\n\n";
 		} catch (FileNotFoundException e) {
 		//Error person do this part	
 		return null;
@@ -50,50 +88,89 @@ public class Dataset {
 	 * else return error message that will be displayed in the error report
 	 * @param file
 	 */
-	public ArrayList<Float> parseCsv(File file) {
+	public String parseCsv(File file) {
 		try {
 			Scanner s = new Scanner(file);
-			ArrayList<Float> scores = new ArrayList<Float>();
-			
+			int count = 0;
 			while (s.hasNextLine()) {
 				String[] data = s.nextLine().split(",");
 				for (String d: data) {
-					scores.add(Float.parseFloat(d));
+					if(isNumeric(d) == false) {
+						return "Violation at index: " + count + " this invalid character {" + d + "} is not a valid float value. File rejected\n";
+					}
+					if(checkForOutOfBounds(Float.parseFloat(d)) == false) {
+						arr.add(Float.parseFloat(d));
+					}
+					
+					else {
+						//work with shashank
+						arr.clear(); // clear array because of BOUNDS violation
+						return "Violation at index: " + count + " the number {" + d + "} is out of bounds. File has not been added\n";
+						
+					}
+					count++;
 				}
+				
 			}
 
 			s.close();
-			return scores;
+			if(arr.size() == 0) {
+				return "File appeared to be empty, please try again\n";
+			}
+			//shashank
+			return "Import from File\nData from file \"" + file.getName() + "\" has been added successfully.\n\n";
 		} catch (FileNotFoundException e) {
 			//error person do this part
-			return null;
+			return "some error";
 		}
 	}
+	
 	/**
 	 * 
-	 * @param arr  - the current list that holds the uploaded files value
 	 * @param lowerBound
 	 * @param upperBound
-	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case the GUI method that called
-	 * this will empty the array
-	 */
-	public Boolean checkForOutOfBounds(int lowerBound, int upperBound) {
+	 * @param list 
+	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case we must clear the array and return
+	 * */
+	public Boolean checkForOutOfBounds(float num) {
 		// check for values greater than upper bound
 		for (int i = 0; i < arr.size(); i++) {
 			float value = arr.get(i);
 			if (value > upperBound) {
-				//do something
+				arr.clear();
 				return true;
 			}
 			if (value < lowerBound) {
-					//do something
-			
+				arr.clear();
 				return true;
 			}
 		}
 		
 		return false;
 	}
+	
+	/**
+	 * get the size of the arrayList
+	 * @return the size
+	 */
+	
+	public int getSize() {
+		return arr.size();
+	}
+	
+	
+	public boolean isNumeric(String strNum) {
+		if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        float f = Float.parseFloat(strNum);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
+	}
+
 	
 	/**
 	 * return a report as string of the data
@@ -194,8 +271,19 @@ public class Dataset {
 	public String displayGraph(ArrayList<Float> arr, int upperBound) {
 		return "";
 	}
-	
-	
+
+
+	/**
+	 * mostly used for debugging to ensure the values are being added correctly
+	 * @return the elements of the array
+	 */
+	public String printArray() {
+		String currentAry = "";
+		for(float f : arr) {
+			currentAry += f + " ";
+		}
+		return currentAry;
+	}
 
 	
 }
