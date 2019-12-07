@@ -330,7 +330,7 @@ public class Design {
 		
 		// DISPLAY GRAPH BUTTON CODE
 		JButton btnDisplayGraph = new JButton("Display Graph");
-		btnAnalyzeData.addActionListener(new ActionListener() {
+		btnDisplayGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {			
 					String data = ds.displayGraph();
 					textArea.append(data + "\n");
@@ -341,7 +341,7 @@ public class Design {
 				
 		// SHOW DISTRIBUTION BUTTON CODE
 		JButton btnShowDistribution = new JButton("Show Distribution");
-		btnAnalyzeData.addActionListener(new ActionListener() {
+		btnShowDistribution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {			
 					String data = ds.showDistribution();
 					textArea.append(data + "\n");
