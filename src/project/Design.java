@@ -35,8 +35,6 @@ public class Design {
 		ErrorReporter newError = new ErrorReporter();
 		Dataset ds = new Dataset(ErrorLog);
 		
-		
-	
 			
 		appMain = new JFrame("DR.CALLISS AMAZING ANALYTICS");
 		appMain.setBounds(100, 100, 800, 600);
@@ -50,6 +48,21 @@ public class Design {
 		JTextArea textArea = new JTextArea(50,200);
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
+		
+		String lower, upper;
+		lower = JOptionPane.showInputDialog(null, "Enter lower range (default = 0)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
+		upper = JOptionPane.showInputDialog(null, "Enter upper range (default = 100)", "Set Boundaries", JOptionPane.PLAIN_MESSAGE);
+		int lowerBound = 0;
+		int upperBound = 100;
+
+		if(ds.isNumeric(lower) && ds.isNumeric(upper)) {
+			lowerBound = Integer.parseInt(lower);
+			upperBound = Integer.parseInt(upper);
+			ds.setBoundaries(lowerBound, upperBound);
+			
+		}
+
+		textArea.append("Lower and upper bounds updated to " + lowerBound + " and " + upperBound + "\n");
 		
 		/**
 		 * Upload Button
@@ -87,6 +100,7 @@ public class Design {
 					File file = fc.getSelectedFile();
 									
 					String typeFile = ds.getExtension(file.getName());
+					
 					
 					switch (typeFile) {
 					case "txt":
@@ -253,6 +267,7 @@ public class Design {
 						File file = fc.getSelectedFile();
 										
 						String typeFile = ds.getExtension(file.getName());
+		
 						ArrayList<Float> list;
 						switch (typeFile) {
 						case "txt":
