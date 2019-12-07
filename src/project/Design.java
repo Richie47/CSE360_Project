@@ -58,11 +58,16 @@ public class Design {
 		if(ds.isNumeric(lower) && ds.isNumeric(upper)) {
 			lowerBound = Integer.parseInt(lower);
 			upperBound = Integer.parseInt(upper);
-			ds.setBoundaries(lowerBound, upperBound);
+			if(ds.setBoundaries(lowerBound, upperBound)) {
+				textArea.append("Lower and upper bounds updated to " + lowerBound + " and " + upperBound + "\n");
+			}
+			else {
+				textArea.append("Error bounds, using default settings 0-100\n");
+			}
 			
 		}
 
-		textArea.append("Lower and upper bounds updated to " + lowerBound + " and " + upperBound + "\n");
+	
 		
 		/**
 		 * Upload Button
@@ -149,7 +154,13 @@ public class Design {
 				if(ds.isNumeric(lower) && ds.isNumeric(upper)) {
 					lowerBound = Integer.parseInt(lower);
 					upperBound = Integer.parseInt(upper);
-					ds.setBoundaries(lowerBound, upperBound);
+					if(ds.setBoundaries(lowerBound, upperBound)) {
+						textArea.append("Lower and upper bounds updated to " + lowerBound + " and " + upperBound + "\n");
+					}
+					else {
+						textArea.append("Error bounds, using default settings 0-100\n");
+					}
+					
 					
 				}
 		
