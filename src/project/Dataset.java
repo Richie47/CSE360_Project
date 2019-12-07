@@ -99,26 +99,6 @@ public class Dataset {
 		return false;
 	}
 	
-	/**
-	 * Overloaded method: Checks whether the values in the arrayList are in bounds
-	 * 	For use in appendData method
-	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case the GUI method that called
-	 * this will empty the array
-	 */
-	/*
-	public Boolean checkForOutOfBounds(ArrayList<Float> arr) {
-		// check for values greater than upper bound
-		for (int i = 0; i < arr.size(); i++) {
-			float value = arr.get(i);
-			if (value > upperBound || value < lowerBound) {
-				//do something
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	*/
 	
 	/**
 	 * Gathers info on the data set like mean, median, mode. 
