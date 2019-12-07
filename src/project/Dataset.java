@@ -324,7 +324,6 @@ public class Dataset {
         
         columnFourth = arr.subList(thirdEnd, arr.size());
 
-		
 		//Now the actual creation of formatted string
 		String toReturn = "";
 		
