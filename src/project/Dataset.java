@@ -178,12 +178,13 @@ public class Dataset {
 	 */
 	public String analyzeData() {
 		//TODO: May need to figure out where error handling is needed.
-		
+		float range = arr.get(0) - arr.get(arr.size() - 1);
 		//REMEMBER TO ADD HISTORY LOG 
 		
 		String analysis = "Mean: " + findMean() + "\n";
 		analysis = analysis + "Median: " + findMedian() + "\n";
 		analysis = analysis + "Mode: " + findMode() + "\n";
+		analysis = analysis + "Range: " + range + "\n";
 		analysis = analysis + "High: " + arr.get(0) + "\n";   //since sorted gets largest value
 		analysis = analysis + "Low: " + arr.get(arr.size() - 1) + "\n";  //since sorted gets smallest value
 		return analysis;
@@ -436,7 +437,7 @@ public class Dataset {
 		return false;
 	}
 
-	public String showDistribution(int upperBound) {
+	public String showDistribution() {
 		String output = "";
 		int[] bins = binCreator();
 		Float [] average = calculateAveragePerRange();
