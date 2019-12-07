@@ -16,7 +16,22 @@ public class ErrorReporter {
 	 * 
 	 */
 	public String createError(String errorString, String lineNumber) {
-		String error = errorString + lineNumber;
+		String error = errorString + lineNumber + "\n";
+		appendToHistory(error);
+		
+		return error; 
+	}
+	
+	/**
+	 * Error Function for CSV files
+	 * 
+	 * @param errorString
+	 * @param indexNumber
+	 * @param value
+	 * @return
+	 */
+	public String createError(String errorString, String indexNumber , String value) {
+		String error = errorString + " : " +indexNumber + " {" + value + "} \n"; 
 		appendToHistory(error);
 		
 		return error; 
@@ -31,7 +46,7 @@ public class ErrorReporter {
 	 * Overloaded createError function for the errors that dont have a line number
 	 */
 	public String createError(String errorString) {
-		String error = errorString;
+		String error = errorString + "\n";
 		appendToHistory(error);
 		
 		return error;
@@ -44,7 +59,7 @@ public class ErrorReporter {
 	 * Appends to the error history
 	 */
 	private void appendToHistory(String Error) {
-		errorHistory = errorHistory + Error + "\n";
+		errorHistory = errorHistory + Error;
 	}
 	
 	/**

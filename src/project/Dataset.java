@@ -1,8 +1,11 @@
 package project;
 
-import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 /**
  * NOTE THIS DOES NOT HAVE ALL THE FUNCTIONS REQUIRED, YOU'LL HAVE TO ADD WHAT YOU NEED AS NEEDED.
  * 
@@ -13,17 +16,33 @@ import java.io.FileNotFoundException;
 
 public class Dataset {
 	private ArrayList<Float> arr = new ArrayList<Float>();  //used to store extracted input
+	private ErrorReporter ErrorLog; //use an ErrorReporter for this class
 	private String historyLog; //used for the overall export history
 	private int lowerBound = 0; //current lower bound default 0
 	private int upperBound = 100; //current upper bound default 100
-	private ErrorReporter error; //create and error reporter so that errors can be reported
+	
+	// Array Lists in order to store the grades 
+	private ArrayList<Float> dist0 = new ArrayList<Float>();
+	private ArrayList<Float> dist1 = new ArrayList<Float>();
+	private ArrayList<Float> dist2 = new ArrayList<Float>();
+	private ArrayList<Float> dist3 = new ArrayList<Float>();
+	private ArrayList<Float> dist4 = new ArrayList<Float>();
+	private ArrayList<Float> dist5 = new ArrayList<Float>();
+	private ArrayList<Float> dist6 = new ArrayList<Float>();
+	private ArrayList<Float> dist7 = new ArrayList<Float>();
+	private ArrayList<Float> dist8 = new ArrayList<Float>();
+	private ArrayList<Float> dist9 = new ArrayList<Float>();
+	
+	
 	
 	/**
 	 * Constructor for Dataset
 	 * @param err - ErrorReporter used in Design class also used here
 	 */
-	public Dataset(ErrorReporter err) {
-		error = err; //set same error reporter as GUI?
+	public Dataset(ErrorReporter errorLog) {
+		ErrorLog = errorLog;
+		//arr = array;
+		//sort();
 	}
 	
 	
@@ -37,7 +56,7 @@ public class Dataset {
 		try { //check that file exists
 			String fileName = file.getName();
 		} catch (FileNotFoundException e) {
-			error.createError("File not found"); //file not found error
+			errorLog.createError("File not found"); //file not found error
 			fileExists = false;
 		}
 		if (fileExists) {
@@ -141,7 +160,7 @@ public class Dataset {
 		Boolean dataInvalid = checkForOutOfBounds();
 		if (dataInvalid == false) {
 			//give error
-			error.createError("Previously entered data out of bounds");
+			errorLog.createError("Previously entered data out of bounds");
 			//delete data or no?
 		}
 		return dataInvalid; //or give error on return
@@ -184,18 +203,19 @@ public class Dataset {
 	}
 	
 	/**
-	 * return a report as string of the data
+	 * Gathers info on the data set like mean, median, mode. 
 	 * 
-	 * @return the string used to be printed into the big display log
+	 * @return the string with information on dataset's statistical information
 	 */
 	public String analyzeData() {
 		//TODO: May need to figure out where error handling is needed.
-		
+		float range = arr.get(0) - arr.get(arr.size() - 1);
 		//REMEMBER TO ADD HISTORY LOG 
 		
 		String analysis = "Mean: " + findMean() + "\n";
 		analysis = analysis + "Median: " + findMedian() + "\n";
 		analysis = analysis + "Mode: " + findMode() + "\n";
+		analysis = analysis + "Range: " + range + "\n";
 		analysis = analysis + "High: " + arr.get(0) + "\n";   //since sorted gets largest value
 		analysis = analysis + "Low: " + arr.get(arr.size() - 1) + "\n";  //since sorted gets smallest value
 		return analysis;
@@ -204,17 +224,17 @@ public class Dataset {
 	/**
 	 * Finds and returns the median. 
 	 * 
-	 * @return
+	 * @return value of the median
 	 */
 	private float findMedian() {
 		
 		//REMEMBER TO ADD HISTORY LOG 
 		float middle = arr.size()/2;
-		//when the length is odd
-		if (arr.size() % 2 == 1) {
-			middle = (arr.get(arr.size()/2) + arr.get(arr.size()/2 - 1))/2;
-	    } 
 		//when the length is even
+		if (arr.size() % 2 == 0) {
+			middle = (arr.get(arr.size()/2) + arr.get(arr.size()/2 - 1))/2;;
+	    } 
+		//when the length is odd
 		else {
 			middle = arr.get(arr.size() / 2);
 	    }
@@ -290,15 +310,96 @@ public class Dataset {
     }
 	
     
-	public String displayData() {
+    /**
+     * Creates a formatted string displaying all the data entries in 4 columns in descending order. 
+     * 
+     * @return Formatted string displaying the 4 descending columns.
+     */
+    
+    public String displayData() {
 
-		return "";
+        int columnLength = arr.size()/4;    //gets the size of a quarter of the columns.
+        
+		int remainder = arr.size()%4;       //remainder used to calculate which of 4 columns need additional value.
+		
+		//This is really ugly but creates variables for four columns and variables for beginning and ending index.
+		List<Float> columnFirst;
+		int firstEnd;  //used to tell where first column to stop (exclusive) and second column to start (inclusive)
+		
+		List<Float> columnSecond;
+		int secondEnd;
+		
+		List<Float> columnThird;
+		int thirdEnd;
+		
+		List<Float> columnFourth;
+		
+		
+		//gets indexes for first column
+		if(remainder > 0)   //if remainder than add 1 to this column's length
+		{
+            firstEnd = columnLength + 1;  //adding 1 to length since there was enough of a remainder.
+		}
+		else
+		{
+			firstEnd = columnLength;
+		}
+        columnFirst = arr.subList(0, firstEnd);
+        
+		//gets indexes for second column
+		if(remainder > 1)   //if still another remainder than add 1 to this column's length
+		{
+			
+            secondEnd =   firstEnd + columnLength + 1;  //gets end point from 
+		}
+		else
+		{
+			secondEnd =   firstEnd + columnLength;
+        }
+        
+        columnSecond = arr.subList(firstEnd, secondEnd);
+        
+		//gets indexes for third column
+		if(remainder > 2)   //if still another remainder than add 1 to this column's length
+		{
+			thirdEnd =   secondEnd + columnLength + 1;
+		}
+		else
+		{
+			thirdEnd =   secondEnd + columnLength;
+		}
+        columnThird = arr.subList(secondEnd, thirdEnd);
+        
+        columnFourth = arr.subList(thirdEnd, arr.size());
+
+		//Now the actual creation of formatted string
+		String toReturn = "";
+		
+		for(int i = 0; i < columnFirst.size(); i++)   //will loop through every value in first column (will always be longest
+		{
+			toReturn = toReturn + columnFirst.get(i) + "    ";
+			
+			if(i < columnFirst.size() - 1 || columnSecond.size() == columnFirst.size()) //if we are before last value OR column lengths are same then it is okay to look at columnSecond
+			{
+				toReturn = toReturn + columnSecond.get(i) + "    ";
+			}
+			
+			if(i < columnFirst.size() - 1 || columnThird.size() == columnFirst.size()) //if not last row OR column lengths equal
+			{
+				toReturn = toReturn + columnThird.get(i) + "    ";
+			}
+			
+			if(i < columnFirst.size() - 1 || columnFourth.size() == columnFirst.size())  //if not last row OR column lengths equal
+			{
+				toReturn = toReturn + columnFourth.get(i);
+			}
+			
+			toReturn = toReturn + "\n";
+		}
+		
+		return toReturn;
 	}
 	
-	public String printColumns() {
-		
-		return "";
-	}
 	
 	/**
 	 * add values to array if they are all within bounds.
@@ -355,6 +456,7 @@ public class Dataset {
 		return outOfBoundsFlag;
 	}
 	
+	
 	/**
 	 * Tells if the Dataset is empty
 	 * @return true if Dataset is empty, false if Dataset has values
@@ -366,9 +468,100 @@ public class Dataset {
 		return false;
 	}
 
-	public String showDistribution(int upperBound) {
+	
+	/**
+	 * Creates the output string of the distributions and the average 
+	 * @return
+	 */
+	public String showDistribution() {
+		String output = "";
+		// gets the number for the different ranges
+		int[] bins = binCreator();
+		// gets the average for each bracket
+		Float [] average = calculateAveragePerRange();
 		
-		return "";
+		
+		// creating the output table for distributions
+		String averageString = "";
+		
+		output = output + "   Range \t# \tAverage(%) \n";
+		output = output + "----------------------------------\n";
+		if (average[0] == 0.0) {
+			averageString = "----";
+		}else {
+			averageString = Float.toString(average[0]);
+		}
+		
+		output = output + "    0% - 9%: \t" + bins[0] + "\t" + averageString + "\n";
+		
+		for(int i = 1; i <= 8; i ++) {
+			if (average[i] == 0.0) {
+				averageString = "----";
+			}else {
+				averageString = Float.toString(average[i]);
+			}
+			
+			output = output +"  " + i +  "0% - " + i + "9%: \t" + bins[i] + "\t" + averageString + "\n";
+		}
+		
+		if (average[9] == 0.0) {
+			averageString = "----";
+		}else {
+			averageString = Float.toString(average[9]);
+		} 
+		
+		output = output + " 90% - 100%: \t" + bins[9] + "\t" + averageString + "\n";
+		
+		return output;
+	}
+	
+	/**
+	 * Takes the grades from each distribution and creates an average out of them
+	 * @return average array that contains average for each bracket
+	 */
+	
+	private Float[] calculateAveragePerRange() {
+		Float [] average = new Float[10];
+		
+		// initializing the average array to 0
+		for(int i = 0; i < average.length; i ++) {
+			average[i] = (float) 0;
+		}
+		
+		// making an array of type arraylist to access the different distributions
+		ArrayList [] distributions = new ArrayList[10];
+		
+		distributions[0] = dist0;
+		distributions[1] = dist1;
+		distributions[2] = dist2;
+		distributions[3] = dist3;
+		distributions[4] = dist4;
+		distributions[5] = dist5;
+		distributions[6] = dist6;
+		distributions[7] = dist7;
+		distributions[8] = dist8;
+		distributions[9] = dist9;
+		
+		// used to iterate through the distributions array
+		for(int list = 0; list <= 9; list ++) {
+			Float sum = (float) 0;
+			// used to iterate through each distribution
+			for(int j = 0; j < distributions[list].size(); j ++ ) {
+				ArrayList<Float> temp = new ArrayList<Float>();
+				temp = distributions[list];
+				Float val = temp.get(j);
+				sum += val;
+			}
+			
+			// sets the average to 0 if there is nothing in the distributions arrayList
+			if(distributions[list].size() != 0) {
+				average[list] = (float) (sum/(distributions[list].size()));
+			}else {
+				average[list] = (float) (0);
+			}
+		}
+		
+		return average;
 	}
 	
 	/**
@@ -389,6 +582,7 @@ public class Dataset {
 		{
 			graph = graph + "*";          
 		}
+		//graph = graph + "      (" + bins[0] + ")\n";
 		graph = graph + "\n";
 		
 		//Handles all bins from 10%-19% to 80% - 89%
@@ -400,6 +594,7 @@ public class Dataset {
 			{
 				graph = graph + "*";
 			}
+			//graph = graph + "      (" + bins[i] + ")\n";
 			graph = graph + "\n";
 		}
 		
@@ -410,8 +605,8 @@ public class Dataset {
 		{
 			graph = graph + "*";
 		}
+		//graph = graph + "      (" + bins[9] + ")\n";
 		graph = graph + "\n";
-		
 		return graph;
 	}
 	
@@ -423,42 +618,56 @@ public class Dataset {
 	private int[] binCreator()
 	{
 		int[] bins = new int[10];  //holds the number in each 10% bin. 0th bin being 0 <= point < 10
-		int range = (upperBound - lowerBound)/10;
+		
+		
 		
 		for(int i = 0; i < arr.size(); i++)  //loops through every data value, starting with highest valued data point
 		{
 
 			Float val = arr.get(i);
+			Float percent = (val/upperBound)*100;
 			
-			if(val >= lowerBound && val < (lowerBound + range*1)) {
+			
+			// add to the appropriate bin and the appropriate distribution array
+			if(percent >= 0 && percent < 10) {
 				bins[0] ++;
+				dist0.add(percent);
 			}
-			if(val >= (lowerBound + range*1) && val < (lowerBound + range*2)) {
+			if(percent >= 10 && percent < 20) {
 				bins[1] ++;
+				dist1.add(percent);
 			}
-			if(val >= (lowerBound + range*2) && val < (lowerBound + range*3)) {
+			if(percent >= 20 && percent < 30) {
 				bins[2] ++;
+				dist2.add(percent);
 			}
-			if(val >= (lowerBound + range*3) && val < (lowerBound + range*4)) {
+			if(percent >= 30 && percent < 40) {
 				bins[3] ++;
+				dist3.add(percent);
 			}
-			if(val >= (lowerBound + range*4) && val < (lowerBound + range*5)) {
+			if(percent >= 40 && percent < 50) {
 				bins[4] ++;
+				dist4.add(percent);
 			}
-			if(val >= (lowerBound + range*5) && val < (lowerBound + range*6)) {
+			if(percent >= 50 && percent < 60) {
 				bins[5] ++;
+				dist5.add(percent);
 			}
-			if(val >= (lowerBound + range*6) && val < (lowerBound + range*7)) {
+			if(percent >= 60 && percent < 70) {
 				bins[6] ++;
+				dist6.add(percent);
 			}
-			if(val >= (lowerBound + range*7) && val < (lowerBound + range*8)) {
+			if(percent >= 70 && percent < 80) {
 				bins[7] ++;
+				dist7.add(percent);
 			}
-			if(val >= (lowerBound + range*8) && val < (lowerBound + range*9)) {
+			if(percent >= 80 && percent < 90) {
 				bins[8] ++;
+				dist8.add(percent);
 			}
-			if(val >= (lowerBound + range*9) && val < upperBound) {
+			if(percent >= 90 && percent <= 100) {
 				bins[9] ++;
+				dist9.add(percent);
 			}
 			
 
@@ -468,13 +677,22 @@ public class Dataset {
 	}
 	
 	/**
-	 * Sends report info to be made into a report file.
-	 * @return historyLog - log of all actions
+	 * Sends report info to the report.txt file. 
+	 * 
+	 * @return String on success of writing
 	 */
 	public String createReport() {
-		//could append certain status values to historyLog that 
-		//may not have been generated by calling those methods?
-		return historyLog;
+		
+		try {
+			PrintWriter writer = new PrintWriter("report.txt", "UTF-8");
+			writer.print(historyLog);
+			writer.close();
+			return "Report created in report.txt";
+		}catch (Exception e)
+		{
+			return "Unable to create report.";
+		}
+		
 	}
 
 	
