@@ -187,6 +187,17 @@ public class Dataset {
 	}
 	
 	/**
+	 * Clears dataset for when uploading new dataset.
+	 * 
+	 * 
+	 */
+	private void clear()
+	{
+		historyLog = historyLog + "Uploading new file.\n";
+		arr.clear();
+	}
+	
+	/**
      * Calculates mode of current data set
      * 
      * @return the mode of the array
@@ -332,6 +343,7 @@ public class Dataset {
 	 * @param arrList - ArrayList of values from input file 
 	 * @return true if they were added, false if not added
 	 */
+    /*
 	public boolean appendData(ArrayList<Float> arrList) {
 		Boolean outOfBoundsFlag = checkForOutOfBounds(arrList);
 		//add the values if NONE are out of bounds
@@ -344,6 +356,7 @@ public class Dataset {
 		
 		return outOfBoundsFlag;
 	}
+	*/
 	
 	/**
 	 * delete the first instance if it exists
@@ -744,8 +757,6 @@ public class Dataset {
 	
 	/**
 	 * 
-	 * @param lowerBound
-	 * @param upperBound
 	 * @param list 
 	 * @return TRUE = THE ARRAY CONTAINS INVALID NUMS true or false whether the array contains all valid nums. If this is not the case we must clear the array and return
 	 * */
