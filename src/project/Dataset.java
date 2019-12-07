@@ -75,6 +75,14 @@ public class Dataset {
 		lowerBound = lower;
 		upperBound = upper;
 		
+		if(lowerBound >= upperBound) {
+			lowerBound = 0;
+			upperBound = 100;
+			
+			ErrorLog.createError("Error lower bound greater than upper");
+			return false;
+		}
+		
 		historyLog += "User Set Bounds  ----  Lower Bound: " + lowerBound + "Upper Bound: " + upperBound +"\n"; 
 		
 		Boolean dataInvalid = checkForOutOfBounds();
