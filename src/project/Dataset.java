@@ -173,7 +173,7 @@ public class Dataset {
 	 * 
 	 * 
 	 */
-	private void clear()
+	private void clearDataset()
 	{
 		historyLog = historyLog + "Uploading new file.\n";
 		arr.clear();
