@@ -87,7 +87,6 @@ public class Design {
 					File file = fc.getSelectedFile();
 									
 					String typeFile = ds.getExtension(file.getName());
-					JOptionPane.showConfirmDialog(null, file);
 					
 					switch (typeFile) {
 					case "txt":
@@ -254,7 +253,6 @@ public class Design {
 						File file = fc.getSelectedFile();
 										
 						String typeFile = ds.getExtension(file.getName());
-						JOptionPane.showConfirmDialog(null, file);
 						ArrayList<Float> list;
 						switch (typeFile) {
 						case "txt":
