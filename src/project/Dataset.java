@@ -292,22 +292,21 @@ public class Dataset {
 		
 		//This is really ugly but creates variables for four columns and variables for beginning and ending index.
 		List<Float> columnFirst;
-		int firstEnd;
-		//int firstEnd;
+		int firstEnd;  //used to tell where first column to stop (exclusive) and second column to start (inclusive)
+		
 		List<Float> columnSecond;
 		int secondEnd;
-		//int secondEnd;
+		
 		List<Float> columnThird;
 		int thirdEnd;
-		//int thirdEnd;
+		
 		List<Float> columnFourth;
-		//int fourthEnd;
-		//int fourthEnd;
+		
 		
 		//gets indexes for first column
 		if(remainder > 0)   //if remainder than add 1 to this column's length
 		{
-            firstEnd = columnLength + 1;
+            firstEnd = columnLength + 1;  //adding 1 to length since there was enough of a remainder.
 		}
 		else
 		{
@@ -346,16 +345,16 @@ public class Dataset {
 		
 		for(int i = 0; i < columnFirst.size(); i++)   //will loop through every value in first column (will always be longest
 		{
-			toReturn = toReturn + columnFirst.get(i) + "  ";
+			toReturn = toReturn + columnFirst.get(i) + "    ";
 			
 			if(i < columnFirst.size() - 1 || columnSecond.size() == columnFirst.size()) //if we are before last value OR column lengths are same then it is okay to look at columnSecond
 			{
-				toReturn = toReturn + columnSecond.get(i) + "  ";
+				toReturn = toReturn + columnSecond.get(i) + "    ";
 			}
 			
 			if(i < columnFirst.size() - 1 || columnThird.size() == columnFirst.size()) //if not last row OR column lengths equal
 			{
-				toReturn = toReturn + columnThird.get(i) + "  ";
+				toReturn = toReturn + columnThird.get(i) + "    ";
 			}
 			
 			if(i < columnFirst.size() - 1 || columnFourth.size() == columnFirst.size())  //if not last row OR column lengths equal
