@@ -1,0 +1,7 @@
+Added value 69.0to data set.
+Displayed Data Columns.
+Displayed Data Columns.
+Ran Analysis on Data set.
+Displayed graph of data set.
+Showed distribution of data points.
+User Created Report of Actions

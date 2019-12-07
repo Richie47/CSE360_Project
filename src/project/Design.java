@@ -105,7 +105,7 @@ public class Design {
 					textArea.append(ds.printArray());
 				}
 				else {
-					textArea.append("Data was not added due to unknown error");
+					textArea.append("Data was not added due to unknown error\n");
 				}
 			}
 		}
@@ -186,10 +186,10 @@ public class Design {
 				if(isValid) {
 					boolean isAdded = ds.addValue(Float.parseFloat(response));
 					if(isAdded) {
-						textArea.append("Value {" + response + "} added successfully\n");
+						textArea.append("Value {" + response + "} was not added\n");
 					}
 					else {
-						textArea.append("Value {" + response + "} was not added\n");
+						textArea.append("Value {" + response + "} added successfully\n");
 					}
 					}
 				
