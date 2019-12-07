@@ -164,7 +164,6 @@ public class Design {
 					
 				}
 		
-				textArea.append("Lower and upper bounds updated to " + lowerBound + " and " + upperBound + "\n");
 				
 			}
 		});
