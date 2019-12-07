@@ -110,6 +110,14 @@ public class Dataset {
 	 */
 	public String analyzeData() {
 		
+		//check for empty dataset
+		if(dataIsEmpty())
+		{
+			historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
+			ErrorLog.createError("Error: Failure to Analyze, no dataset");
+			return "Unable to Analyze, no dateset.";
+		}
+		
 		historyLog = historyLog + "Ran Analysis on Data set.\n";
 		
 		//TODO: May need to figure out where error handling is needed.
@@ -234,6 +242,13 @@ public class Dataset {
     
     public String displayData() {
     	
+    	//check for empty dataset
+    			if(dataIsEmpty())
+    			{
+    				historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
+    				ErrorLog.createError("Error: Failure to Display, no dataset");
+    				return "Could not display, no dataset.";
+    			}
     	
     	historyLog = historyLog + "Displayed Data Columns.\n";
     	
