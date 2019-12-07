@@ -1,3 +1,6 @@
+/**
+* The App class opens the GUI to run the project.
+*/
 package project;
 
 import java.awt.EventQueue;

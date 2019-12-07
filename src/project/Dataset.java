@@ -8,9 +8,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 /**
- * NOTE THIS DOES NOT HAVE ALL THE FUNCTIONS REQUIRED, YOU'LL HAVE TO ADD WHAT YOU NEED AS NEEDED.
- * 
- * OUR OVERALL IDEA IS THAT THE GUI (DESIGN.JAVA) IS GOING TO CALL ONE OF THESE HELPER FUNCTIONS
+ * The Dataset class represents the dataset. It stores the dataset, sets boundaries,
+ * validates and analyzes the data, as well as creating distributions and creating graph.
+ * Also adds to the error log when appropriate.
  * @author Richie
  *
  */
