@@ -175,9 +175,9 @@ public class Dataset {
 	}
 	
 	/**
-	 * return a report as string of the data
+	 * Gathers info on the data set like mean, median, mode. 
 	 * 
-	 * @return the string used to be printed into the big display log
+	 * @return the string with information on dataset's statistical information
 	 */
 	public String analyzeData() {
 		//TODO: May need to figure out where error handling is needed.
@@ -196,7 +196,7 @@ public class Dataset {
 	/**
 	 * Finds and returns the median. 
 	 * 
-	 * @return
+	 * @return value of the median
 	 */
 	private float findMedian() {
 		
