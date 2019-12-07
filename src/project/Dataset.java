@@ -72,6 +72,9 @@ public class Dataset {
 	public Boolean setBoundaries(int lower, int upper) {
 		lowerBound = lower;
 		upperBound = upper;
+		
+		historyLog += "User Set Bounds  ----  Lower Bound: " + lowerBound + "Upper Bound: " + upperBound +"\n"; 
+		
 		Boolean dataInvalid = checkForOutOfBounds();
 		if (dataInvalid == false) {
 			//give error
@@ -185,6 +188,7 @@ public class Dataset {
     {
     	//REMEMBER TO ADD HISTORY LOG 
     	
+    	
         float mode = arr.get(0);
         int amount = 1;  //amount 'mode' appears in dataset
 
@@ -229,7 +233,8 @@ public class Dataset {
      */
     
     public String displayData() {
-
+    	
+    	
     	historyLog = historyLog + "Displayed Data Columns.\n";
     	
         int columnLength = arr.size()/4;    //gets the size of a quarter of the columns.
@@ -611,6 +616,8 @@ public class Dataset {
 	 */
 	public String createReport() {
 		
+		historyLog += "User Created Report of Actions\n";
+		
 		try {
 			PrintWriter writer = new PrintWriter("report.txt", "UTF-8");
 			writer.print(historyLog);
@@ -618,6 +625,7 @@ public class Dataset {
 			return "Report created in report.txt";
 		}catch (Exception e)
 		{
+			historyLog += "Failed report creation\n";
 			return "Unable to create report.";
 		}
 		
