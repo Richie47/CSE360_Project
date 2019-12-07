@@ -476,41 +476,43 @@ public class Dataset {
 	private int[] binCreator()
 	{
 		int[] bins = new int[10];  //holds the number in each 10% bin. 0th bin being 0 <= point < 10
-		int range = (upperBound - lowerBound)/10;
+		
+		
 		
 		for(int i = 0; i < arr.size(); i++)  //loops through every data value, starting with highest valued data point
 		{
 
 			Float val = arr.get(i);
+			Float percent = (val/upperBound)*100;
 			
-			if(val >= lowerBound && val < (lowerBound + range*1)) {
+			if(percent >= 0 && percent < 10) {
 				bins[0] ++;
 			}
-			if(val >= (lowerBound + range*1) && val < (lowerBound + range*2)) {
+			if(percent >= 10 && percent < 20) {
 				bins[1] ++;
 			}
-			if(val >= (lowerBound + range*2) && val < (lowerBound + range*3)) {
+			if(percent >= 20 && percent < 30) {
 				bins[2] ++;
 			}
-			if(val >= (lowerBound + range*3) && val < (lowerBound + range*4)) {
+			if(percent >= 30 && percent < 40) {
 				bins[3] ++;
 			}
-			if(val >= (lowerBound + range*4) && val < (lowerBound + range*5)) {
+			if(percent >= 40 && percent < 50) {
 				bins[4] ++;
 			}
-			if(val >= (lowerBound + range*5) && val < (lowerBound + range*6)) {
+			if(percent >= 50 && percent < 60) {
 				bins[5] ++;
 			}
-			if(val >= (lowerBound + range*6) && val < (lowerBound + range*7)) {
+			if(percent >= 60 && percent < 70) {
 				bins[6] ++;
 			}
-			if(val >= (lowerBound + range*7) && val < (lowerBound + range*8)) {
+			if(percent >= 70 && percent < 80) {
 				bins[7] ++;
 			}
-			if(val >= (lowerBound + range*8) && val < (lowerBound + range*9)) {
+			if(percent >= 80 && percent < 90) {
 				bins[8] ++;
 			}
-			if(val >= (lowerBound + range*9) && val < upperBound) {
+			if(percent >= 90 && percent <= 100) {
 				bins[9] ++;
 			}
 			
@@ -532,4 +534,3 @@ public class Dataset {
 
 	
 }
-	
