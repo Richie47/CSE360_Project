@@ -115,7 +115,7 @@ public class Dataset {
 		{
 			historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
 			ErrorLog.createError("Error: Failure to Analyze, no dataset");
-			return "Unable to Analyze, no dateset.";
+			return "Unable to Analyze, no dateset.\n";
 		}
 		
 		historyLog = historyLog + "Ran Analysis on Data set.\n";
@@ -419,6 +419,14 @@ public class Dataset {
 	 * @return
 	 */
 	public String showDistribution() {
+		
+		//check for empty dataset
+		if(dataIsEmpty())
+		{
+			historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
+			ErrorLog.createError("Error: Failure to Distribute, no dataset");
+			return "Unable to show distribution, no dateset\n";
+		}
 		
 		historyLog = historyLog + "Showed distribution of data points.\n";
 		
