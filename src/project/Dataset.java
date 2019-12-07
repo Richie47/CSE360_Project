@@ -441,8 +441,24 @@ public class Dataset {
 		int[] bins = binCreator();
 		Float [] average = calculateAveragePerRange();
 		
+		output = output + "   Range \t# \tAverage \n";
+		output = output + "----------------------------------\n";
+		
+		output = output + "    0% - 9%: \t" + bins[0] + "\t" + average[0] + "\n";
+		
+		for(int i = 1; i <= 8; i ++) {
+			output = output +"   " + i +  "0% -" + i + "9%: \t" + bins[i] + "\t" + average[i] + "\n";
+		}
+		
+		output = output + " 90% - 100%: \t" + bins[9] + "\t" + average[9] + "\n";
+		
 		return output;
 	}
+	
+	/**
+	 * Takes the grades from each distribution and creates an average out of them
+	 * @return
+	 */
 	
 	private Float[] calculateAveragePerRange() {
 		Float [] average = new Float[10];
@@ -474,7 +490,11 @@ public class Dataset {
 				sum += val;
 			}
 			
-			average[list] = (float) (sum/(distributions[list].size()));
+			if(distributions[list].size() != 0) {
+				average[list] = (float) (sum/(distributions[list].size()));
+			}else {
+				average[list] = (float) (0);
+			}
 		}
 		
 		return average;
