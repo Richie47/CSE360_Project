@@ -8,9 +8,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 /**
- * The Dataset class represents the dataset. It stores the dataset, sets boundaries,
- * validates and analyzes the data, as well as creating distributions and creating graph.
- * Also adds to the error log when appropriate.
+ * NOTE THIS DOES NOT HAVE ALL THE FUNCTIONS REQUIRED, YOU'LL HAVE TO ADD WHAT YOU NEED AS NEEDED.
+ * 
+ * OUR OVERALL IDEA IS THAT THE GUI (DESIGN.JAVA) IS GOING TO CALL ONE OF THESE HELPER FUNCTIONS
  * @author Richie
  *
  */
@@ -42,7 +42,6 @@ public class Dataset {
 	 */
 	public Dataset(ErrorReporter errorLog) {
 		ErrorLog = errorLog;
-		historyLog = "";
 		//arr = array;
 		//sort();
 	}
@@ -75,17 +74,13 @@ public class Dataset {
 		lowerBound = lower;
 		upperBound = upper;
 		
-		if(lowerBound >= upperBound) {
-			lowerBound = 0;
-			upperBound = 100;
-			
-			ErrorLog.createError("Error lower bound greater than upper");
-			return false;
-		}
-		
 		historyLog += "User Set Bounds  ----  Lower Bound: " + lowerBound + "Upper Bound: " + upperBound +"\n"; 
 		
 		Boolean dataInvalid = checkForOutOfBounds();
+		
+		if(arr.size() == 0) {
+			return true;
+		}
 		if (dataInvalid == false) {
 			//give error
 			ErrorLog.createError("Previously entered data out of bounds");
