@@ -145,8 +145,14 @@ public class Design {
 			}
 		});
 		mainPanel.add(btnUploadFile, matrix);
-		
+	
 		JButton btnErrorReport = new JButton("ERROR REPORT");
+		btnErrorReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String error = ErrorLog.getErrorHistory();
+				textArea.append("-----------ERROR REPORT-----------------------------------------------\n" + error);
+			}});
+		
 		mainPanel.add(btnErrorReport);
 		
 
