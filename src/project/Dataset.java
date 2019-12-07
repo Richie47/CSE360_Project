@@ -110,6 +110,14 @@ public class Dataset {
 	 */
 	public String analyzeData() {
 		
+		//check for empty dataset
+		if(dataIsEmpty())
+		{
+			historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
+			ErrorLog.createError("Error: Failure to Analyze, no dataset");
+			return "Unable to Analyze, no dateset.\n";
+		}
+		
 		historyLog = historyLog + "Ran Analysis on Data set.\n";
 		
 		//TODO: May need to figure out where error handling is needed.
@@ -173,7 +181,7 @@ public class Dataset {
 	 * 
 	 * 
 	 */
-	private void clear()
+	private void clearDataset()
 	{
 		historyLog = historyLog + "Uploading new file.\n";
 		arr.clear();
@@ -234,6 +242,13 @@ public class Dataset {
     
     public String displayData() {
     	
+    	//check for empty dataset
+    			if(dataIsEmpty())
+    			{
+    				historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
+    				ErrorLog.createError("Error: Failure to Display, no dataset");
+    				return "Could not display, no dataset.";
+    			}
     	
     	historyLog = historyLog + "Displayed Data Columns.\n";
     	
@@ -405,6 +420,14 @@ public class Dataset {
 	 */
 	public String showDistribution() {
 		
+		//check for empty dataset
+		if(dataIsEmpty())
+		{
+			historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
+			ErrorLog.createError("Error: Failure to Distribute, no dataset");
+			return "Unable to show distribution, no dateset\n";
+		}
+		
 		historyLog = historyLog + "Showed distribution of data points.\n";
 		
 		String output = "";
@@ -504,6 +527,14 @@ public class Dataset {
 	 * @return formatted string of ascii bar graph.
 	 */
 	public String displayGraph() {
+		
+		//check for empty dataset
+		if(dataIsEmpty())
+		{
+			historyLog = historyLog + "Couldn't run Analysis, empty dataset.\n";
+			ErrorLog.createError("Error: Failure to Graph, no dataset");
+			return "Unable to graph, no dataset.\n";
+		}
 		
 		historyLog = historyLog + "Displayed graph of data set.\n";
 		
