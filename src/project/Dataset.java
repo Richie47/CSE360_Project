@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 /**
@@ -722,7 +723,7 @@ public class Dataset {
 
 			s.close();
 			ErrorLog.createError("File appeared to be empty, please try again");
-
+			sort();
 			return "Import from File\nData from file \"" + file.getName() + "\" has been added successfully.\n\n";
 		} catch (FileNotFoundException e) {
 		ErrorLog.createError("Error File not Found");
@@ -771,7 +772,7 @@ public class Dataset {
 				ErrorLog.createError("File appeared to be empty, please try again");
 				return "File appeared to be empty, please try again\n";
 			}
-			
+			sort();
 			return "Import from File\nData from file \"" + file.getName() + "\" has been added successfully.\n\n";
 		} catch (FileNotFoundException e) {
 			//error person do this part
